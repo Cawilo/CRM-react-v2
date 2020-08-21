@@ -1,0 +1,38 @@
+.contactdetails-info{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.5em;
+    margin-top: 1em;
+}
+
+#contactdetails-info-id{
+    /* box-shadow:inset 0px 0px 0px 0px rgb(49, 185, 31); */
+    transition: 0.4s;
+}
+
+.contactdetails-info>div>input{
+    padding: 0.6em;
+}
+
+.contactdetails-info>div:nth-child(4){
+    grid-column: 1/4;
+}
+.contactdetails-info>div:nth-child(5){
+    grid-column: 1/4;
+}
+
+
+#contactdetails-info-save{
+    padding: 0.5em;
+    background: rgb(35, 153, 54);
+    color: white;
+    font-weight: bold;
+    -webkit-transform: scale(1); 
+      -ms-transform: scale(1); 
+          transform: scale(0);
+          transition: 0.5s;
+}
+#contactdetails-info-save:active{
+    background: rgb(22, 90, 33);
+    transition: 0;
+}

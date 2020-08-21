@@ -1,0 +1,60 @@
+.contactdetails-appointments-container >div:nth-child(odd){
+    background: rgb(19, 19, 19);
+}
+.contactdetails-appointments-container >div:nth-child(even){
+    background: rgb(37, 37, 37);
+}
+
+.contactdetails-appointments-container >div:first-child{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.contactdetails-appointments-container >div:last-child{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.contactdetails-appointments-container >div{
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-gap: 1em;
+    padding: 0.5em;
+    
+}
+
+.contactdetails-appointments-container >div>div:nth-child(1){
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.contactdetails-appointments-container >div>div:nth-child(2){
+    justify-self: center;
+    white-space: nowrap;
+    
+}
+
+.contactdetails-appointments-container >div>div:nth-child(3){
+    justify-self: right;
+    color: #7e7e7e;
+    white-space: nowrap;
+}
+
+.contactdetails-appointments-container >div>div:nth-child(4){
+    color: #929292;
+    grid-column: 1/4;
+}
+
+
+
+.contactdetails-appowhatday{
+    margin-bottom: 1em;
+    padding: 0.2em;
+    background: rgb(85, 85, 85);
+    border-radius: 3px;
+}
+
+.contactdetails-appowhatday>div:nth-child(1){
+    color: white;
+    font-weight: bold;
+    text-align: right;
+}

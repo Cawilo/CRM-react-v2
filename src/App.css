@@ -1,38 +1,120 @@
-.App {
-  text-align: center;
+body {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    color: white;
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+
+/* gobal styles */
+
+
+input, button, textarea, select{
+    border:0px;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    width: 100%;
+    box-sizing : border-box;
+    border-radius: 3px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button{
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+div{-webkit-tap-highlight-color: transparent;}
+
+a{color: #bebebe;text-decoration: none;}
+a:active{color: #686868;}
+
+/* logo of login */
+#logos-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    margin-bottom: 1em;
+}
+#logos-container > img {
+    width: 5em;
 }
 
-.App-link {
-  color: #61dafb;
+/* all icons white */
+.fas{
+    color:white
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fa-map-marker-alt{
+    color: rgb(201, 52, 52);
+}
+.fa-map-marker-alt:active{
+    color: rgb(109, 35, 35);
+}
+
+
+/* style input date global */
+
+input{
+    height: 100%;
+    -webkit-appearance: none;
+    padding: 0.3em;
+    font-family: 'Noto Sans JP', sans-serif;
+    background: rgb(24, 24, 24);
+    color: white;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+}
+
+select{
+    background: rgb(24, 24, 24);
+    padding: 0.3em;
+    color: white;
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-appearance: none;
+}
+
+
+
+
+/*Telefono*/
+@media (max-width: 576px) {
+    
+    
+}
+
+/*Tablet*/
+@media (min-width: 576px) {
+    
+    
+}
+
+/*Desktop*/
+@media (min-width: 768px) {
+    .container{
+        width: 450px;
+        margin: auto
+    }
+    
+    
+    
 }

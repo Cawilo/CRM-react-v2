@@ -1,0 +1,9 @@
+.projects-noitems{
+    position: absolute;
+    text-align: center;
+    padding: 1em;
+    width: 20em;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 45%
+}

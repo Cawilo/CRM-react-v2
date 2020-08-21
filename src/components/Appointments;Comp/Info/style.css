@@ -1,0 +1,89 @@
+
+
+.appointments-block{
+    margin-bottom: 2em;
+
+}
+
+
+.appointments-block > div:nth-child(1){
+    font-size: 1.5em;
+    font-weight: bold;
+    /* border-bottom: solid 3px rgb(255, 255, 255); */
+    /* border-top: solid 3px rgb(255, 255, 255); */
+    margin-bottom: 0.3em;
+    text-align: right;
+}
+
+/* .appointments-block > div:nth-child(2)>div:nth-child(odd){
+    background: rgb(68, 68, 68);
+}
+.appointments-block > div:nth-child(2)>div:nth-child(even){
+    background: rgb(29, 29, 29);
+} */
+
+.appointments-appo {
+    display: grid;
+    grid-template-columns: 2fr auto 1fr;
+    grid-gap: 0.3em;
+    padding: 0.5em;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.appointments-appo>div:nth-child(1){
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.appointments-appo>div:nth-child(2){
+    justify-self: center;
+    white-space: nowrap;
+}
+
+.appointments-appo>div:nth-child(3){
+    justify-self: right;
+    white-space: nowrap;
+}
+
+.appointments-appo>div:nth-child(4){
+    grid-column: 1/4;
+    color: #bebebe;
+}
+
+.appointments-appo>div:nth-child(5){
+    white-space: nowrap;
+    color: #919191;
+    font-size: 0.8em;
+}
+
+.appointments-appo>div:nth-child(6){
+    grid-column: 2/4;
+    justify-self: right;
+    white-space: nowrap;
+    color: #919191;
+    font-size: 0.8em;
+}
+
+/* call swipe */
+
+.appointments{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+.appointments > div:nth-child(2){
+    overflow: hidden;
+    width: 0em;
+    background: rgb(41, 152, 180);
+    white-space: nowrap;
+    display: grid;
+    grid-template-columns: 80px;
+    align-items: center;
+    justify-items: center;
+    transition: 0.5s;
+}
+
+.appointments > div:nth-child(2):active{
+    background: rgb(19, 72, 85);
+    transition: 0s
+}

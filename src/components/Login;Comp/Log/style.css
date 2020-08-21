@@ -1,0 +1,26 @@
+/* Buttons container */
+
+/* log in */
+.login-container > form > div:nth-child(3) > button:nth-child(1){
+    padding: 1em;
+    background: #262626;
+    font-size: 1em;
+    color: rgb(46, 111, 185);
+    border: solid rgb(46, 111, 185) 1px;
+}
+.login-container > form > div:nth-child(3) > button:nth-child(1):active{
+    color: white;
+    background: rgb(46, 111, 185);
+}
+
+/* forgot pass  */
+.login-container > form > div:nth-child(3) > div {display: inline-block}
+.login-container > form > div:nth-child(3) > div > button{
+    background: #262626;
+    color: white;
+    margin-top: 1em;
+    font-size: 0.9em;
+    padding: 1em 1em 1em 0;
+
+}
+ 

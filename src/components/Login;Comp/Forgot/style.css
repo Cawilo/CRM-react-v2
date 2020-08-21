@@ -1,0 +1,27 @@
+/* Buttons container */
+
+
+/* send */
+.login-container > form > div:nth-child(2) > button:nth-child(1){
+    padding: 1em;
+    background: #262626;
+    font-size: 1em;
+    color: rgb(185, 46, 46);
+    border: solid rgb(185, 46, 46) 1px;
+}
+.login-container > form > div:nth-child(2) > button:nth-child(1):active{
+    color: white;
+    background: rgb(185, 46, 46);
+}
+
+
+/* already an account */
+.login-container > form > div:nth-child(2) > div {display: inline-block}
+.login-container > form > div:nth-child(2) > div > button{
+    background: #262626;
+    color: white;
+    margin-top: 1em;
+    font-size: 0.9em;
+    padding: 1em 1em 1em 0;
+
+}

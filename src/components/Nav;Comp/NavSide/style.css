@@ -1,0 +1,64 @@
+.overlaySide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.0);
+    -webkit-backdrop-filter:blur(0px);
+    backdrop-filter: blur(0px);
+    display: none;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: 0.5s;
+}
+
+.navSide {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 5;
+    background: #1a1a1a;
+    height: 100%;
+    width: 0;
+    -webkit-box-shadow: -6px 0px 6px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -6px 0px 6px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -6px 0px 6px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.5s;
+}
+
+.navSide>a>div {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1.1em;
+    color: #ffffff;
+    white-space: nowrap;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+}
+.navSide>a {
+    text-decoration: none;
+}
+
+
+.navSide>a>div:active {
+    background: #0e0e0e;
+    text-decoration: none;
+}
+
+.navSide-pattern{
+    background: rgb(39, 39, 39);
+}
+
+
+
+

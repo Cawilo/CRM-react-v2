@@ -1,0 +1,26 @@
+.container-block-appointments-a{
+    display: grid;
+    grid-template-columns: 0.4fr 0.5fr 1fr;
+    align-items: center;
+    padding: 0.5em;
+    text-align: center;
+    white-space: pre-line;
+    word-wrap: normal;
+    word-break: break-word;
+}
+
+.container-block-appointments > div:nth-child(1){
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.container-block-appointments > div:nth-child(5){
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.container-block-appointments-a:nth-child(odd){background: rgb(19, 19, 19);}
+.container-block-appointments-a:nth-child(even){background: rgb(37, 37, 37);}
+
+.container-block-appointments-a >div:nth-child(1){font-weight: bold;}
+.container-block-appointments-a >div:nth-child(2){color:#bebebe;}

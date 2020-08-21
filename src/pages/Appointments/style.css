@@ -1,0 +1,77 @@
+.appointment-modal{
+    padding: 0.5em 0.5em 0 0.5em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+    align-items: center;
+}
+.appointment-modal>input{
+    padding: 0.5em;
+}
+
+.appointment-modal>div:nth-child(1){
+    font-weight: bold;
+}
+
+.appointment-modal>div:nth-child(2){
+    justify-self: center;
+}
+.appointment-modal>div:nth-child(3){
+    justify-self: right;
+}
+
+.appointment-modal>a:nth-child(4){
+    grid-column: 1/4;
+}
+.appointment-modal>div:nth-child(5){
+    grid-column: 1/4;
+}
+.appointment-modal>div:nth-child(6)>div{
+    display: inline-block;
+    background: rgb(38, 153, 219);
+    padding: 0.3em;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.appointment-modal>div:nth-child(6)>div:active{background: rgb(17, 64, 92);}
+.appointment-modal>div:nth-child(6)>div>i{margin-left: 0.3em;}
+
+.appointment-modal>div:nth-child(7){
+    grid-column: 3/4;
+    justify-self: right;
+    white-space: nowrap;
+}
+
+.appointment-modal>div:nth-child(8){
+    grid-column: 3/4;
+    justify-self: right;
+}
+.appointment-modal>div:nth-child(8)>div{
+    display: inline-block;
+}
+#appodetails-save{
+    padding: 0.5em;
+    color: white;
+    font-weight: bold;
+    background: rgb(39, 163, 39);
+    -webkit-transform: scale(1); 
+      -ms-transform: scale(1); 
+          transform: scale(0);
+    transition: 0.5s;
+}
+#appodetails-save:active{background: rgb(16, 71, 16); transition: 0s}
+
+.appointment-modal>div:nth-child(9){
+    grid-column: 1/4;
+    background: rgb(12, 12, 12);
+    text-align: center;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.appointment-modal>div:nth-child(9):active{
+    background: rgb(32, 32, 32);
+}

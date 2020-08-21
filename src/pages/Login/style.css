@@ -1,0 +1,33 @@
+.login-container{
+    padding: 1em;
+}
+
+
+
+/* Inputs */
+
+.login-container > form > div{
+    margin-bottom: 1em;
+}
+
+.login-container > form > div > input {
+    padding: 0.6em;
+    font-size: 1.1em;
+    background: #1b1b1b;
+    color: white;
+}
+.login-container > form > div > input:focus{
+    background: #1b1b1b;
+}
+
+
+/* copyright */
+
+#copyright{
+    font-size: 0.9em;
+    color: grey;
+    
+}
+
+
+

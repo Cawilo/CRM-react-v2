@@ -1,0 +1,23 @@
+.container-block-contacts-c{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: 0.5em;
+    text-align: center;
+    white-space: pre-line;
+    word-wrap: normal;
+    word-break: break-word;
+}
+
+.container-block-contacts > div:nth-child(1){
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.container-block-contacts > div:nth-child(5){
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.container-block-contacts-c:nth-child(odd){background: rgb(19, 19, 19);}
+.container-block-contacts-c:nth-child(even){background: rgb(37, 37, 37);}

@@ -1,0 +1,14 @@
+.seemore-block{
+    background: rgb(19, 19, 19);
+    margin: 0.5em -0.5em -0.5em -0.5em;
+    text-align: center;
+    color: #727272;
+    cursor: pointer;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 0.3em;
+}
+
+.seemore-block:active{background: #242424;}
+
+.fa-angle-down{color: #727272}

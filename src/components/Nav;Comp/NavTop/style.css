@@ -1,0 +1,73 @@
+.navTop{
+    background: rgb(46, 46, 46);
+    padding: 0.5em 0 0.5em 0;
+    width: 100%;
+    margin-bottom: 1em;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    -webkit-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.75);
+
+}
+.navTop > div{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+
+#navTop-title{
+    font-weight: bold;
+    font-size: 1.5em;
+    text-transform:capitalize;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 0.5em;
+}
+
+#navTop-menu >button{
+    padding: 0.5em;
+    background: transparent;
+}
+#navTop-back >button{
+    padding: 0.5em;
+    background: transparent;
+}
+
+#navTop-menu >button:active > .fa-bars{color:#bebebe}
+#navTop-back >button:active > .fa-arrow-left{color:#bebebe}
+
+
+
+
+
+/*Telefono*/
+@media (max-width: 576px) {
+    .navTop > div > div{
+        margin: 0 0.5em 0 0.5em;
+    }
+    
+}
+
+/*Tablet*/
+@media (min-width: 576px) {
+    .navTop > div > div{
+        margin: 0 0.5em 0 0.5em;
+    }
+    
+}
+
+/*Desktop*/
+@media (min-width: 768px) {
+    .navTop > div{
+        width: 450px;
+        margin: auto
+    }
+    .navTop > div > div{
+        margin: 0;
+    }
+    
+    
+    
+}
