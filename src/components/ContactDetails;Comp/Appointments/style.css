@@ -1,3 +1,7 @@
+.contactdetails-appointments-container{
+    margin-top: 0.5em;
+}
+
 .contactdetails-appointments-container >div:nth-child(odd){
     background: rgb(19, 19, 19);
 }
@@ -42,12 +46,16 @@
 .contactdetails-appointments-container >div>div:nth-child(4){
     color: #929292;
     grid-column: 1/4;
+    white-space: pre-line;
+    word-wrap: normal;
+    word-break: break-word;
 }
 
 
 
 .contactdetails-appowhatday{
     margin-bottom: 1em;
+    margin-top: 1em;
     padding: 0.2em;
     background: rgb(85, 85, 85);
     border-radius: 3px;
@@ -58,3 +66,65 @@
     font-weight: bold;
     text-align: right;
 }
+
+
+.contactdetails-createappo>button{
+    background: rgb(35, 153, 54);
+    padding: 0.5em;
+    color: white;
+    font-weight: bold;
+}
+
+.contactdetails-createappo>button:active{background: rgb(21, 88, 32);}
+
+
+/* modal appo */
+
+.appodetails-modal{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.5em;
+    padding: 1em;
+    align-items: center;
+}
+
+#appodetails-modal-titulo{
+    padding: 0.5em 0 0 0.6em;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+
+.appodetails-modal>div:nth-child(4){
+    grid-column: 1/4;
+}
+
+.appodetails-modal>div:nth-child(4)>textarea{
+    background: rgb(24, 24, 24);
+    color: white;
+}
+
+.appodetails-modal>div:nth-child(5){
+    color: #bebebe;
+    font-size: 0.8em;
+}
+
+.appodetails-modal>div:nth-child(6){
+    grid-column: 3/4;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 0.3em;
+    
+}
+
+.appodetails-modal>div:nth-child(6)>button:nth-child(1){
+    background: rgb(214, 39, 39);
+}
+.appodetails-modal>div:nth-child(6)>button:nth-child(2){
+    background: rgb(34, 168, 34);
+    color: white;
+    font-weight: bold;
+    padding: 0.4em;
+}
+.appodetails-modal>div:nth-child(6)>button:nth-child(1):active{background: rgb(95, 18, 18);}
+.appodetails-modal>div:nth-child(6)>button:nth-child(2):active{background: rgb(16, 78, 16);}

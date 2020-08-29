@@ -76,6 +76,7 @@ class CONTACTDETAILS_INFO extends Component {
                                 value={this.state.nombre}
                                 onChange={this.handleInputChange}
                                 name='nombre'
+                                required
                             />
                         </div>
                         <div>
@@ -92,6 +93,7 @@ class CONTACTDETAILS_INFO extends Component {
                                 value={this.state.telefono || ''}
                                 onChange={this.handleInputChange}
                                 name='telefono'
+                                required
                             />
                         </div>
                         <div>

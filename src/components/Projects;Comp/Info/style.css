@@ -12,6 +12,8 @@
 
 
 
+
+
 .projectSection > div{
     padding: 0.3em;
 }
@@ -76,6 +78,7 @@
     border-radius: 3px;
     
 }
+
 
 .project-products> div:nth-child(1) > div:nth-child(2){
     color: rgb(238, 160, 15);
@@ -152,11 +155,29 @@
     font-family: 'Noto Sans JP', sans-serif;
 }
 
+/* remates */
+
+.projects-remates{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+/* .projects-remates>{
+    background: transparent;
+} */
+
 
 /* /////////////////// */
 .project-image > img{
     width: 100%
 };
+
+
+
+
+
+
+
 
 
 

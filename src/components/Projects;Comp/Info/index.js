@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // eslint-disable-next-line
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-// import Modal from '../../Global;Comp/Modal';
+// import Modal from '../ModalImage';
 import './style.css'
 
 
@@ -13,7 +13,8 @@ class PROJECTS_INFO extends Component {
         this.state = {
             toSaveImage: [],
 
-            ImgProyecto: '',
+            imgText: '',
+            projectName: ''
 
         }
     }
@@ -28,14 +29,19 @@ class PROJECTS_INFO extends Component {
     }
 
     grabImage = (event) => {
-        console.log(event.currentTarget)
-        const { name } = event.currentTarget;
+        event.persist()
+        console.log(event.currentTarget.attributes.id.value)
+        console.log(event.type)
+        // this.setState({projectName: event.currentTarget.attributes.id.value},()=> {
+        //     console.log(this.state.projectName)
+        //     this.child.current.openModal()
+        // })
+       
+      
         let imgobj = {
             nombre: event.target.files[0].name,
             data: '',
         }
-        //console.log(event.target.files[0])
-        let images = []
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
         var maxW = 600;
@@ -52,24 +58,38 @@ class PROJECTS_INFO extends Component {
             canvas.height = ihScaled;
             ctx.drawImage(img, 0, 0, iwScaled, ihScaled);
             imgobj.data = canvas.toDataURL("image/jpeg", 0.5)
-            images.push(imgobj)
-            this.setState({ toSaveImage: images, ImgProyecto: name }, this.openModal)
+
+            this.setState({ toSaveImage: imgobj})
+            //this.child.current.openModal()
             // console.log(name)
-            
+
 
         }
         img.src = URL.createObjectURL(event.target.files[0]);
-        
+
+
+
+
 
     }
 
-    openModal = () => {
-        console.log(this.state.ImgProyecto)
-        this.child.current.openModal();
+    
+
+    closeModal = () => {
+        setTimeout(() => {
+            let canvas = document.getElementById('canvas')
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            this.setState({ imgText: "", toSaveImages: [] })
+            // document.getElementById('file-upload').value = null
+        }, 500);
     }
 
-    
-    
+    // saveImage = () => {
+    //     console.log(this.state.toSaveImage)
+    // }
+
+
 
     render() {
         return (
@@ -81,13 +101,24 @@ class PROJECTS_INFO extends Component {
                     </div>
                     <div className='projectSection'>
                         <div>Proyecto</div>
-                        <div>{this.props.info[0][0].nombre_contacto} {this.props.info[0][0].apellido_contacto}</div>
+                        <div>{this.props.info[4][0].id === '0' ? this.props.info[0][0].nombre_contacto + ' ' + this.props.info[0][0].apellido_contacto:'Remate'}</div>
                     </div>
                 </div>
                 <div className='projectSection'>
                     <div>Vendedor</div>
                     <div>{this.props.info[0][0].nombre_vendedor}</div>
                 </div>
+                {this.props.info[4][0].id !== '0' ? (
+                <div className='projectSection'>
+                    <div>Proyectos</div>
+                    {this.props.info[4].map((proj, index) => (
+                        <div className='projects-remates' key={index}>
+                            <div>{proj.nombre_contacto} {proj.apellido_contacto}</div> 
+                            <a href={`https://www.google.com/maps/search/${proj.direccion}`}><i className="fas fa-map-marker-alt fa-2x"></i></a>
+                        </div>
+                    ))}
+                </div>
+                ):null}
                 <div className='projectSection'>
                     <div>Vehiculos</div>
 
@@ -139,21 +170,24 @@ class PROJECTS_INFO extends Component {
                 <div className='projectSection'>
                     <div>Imagenes</div>
                     {this.props.info[6].map((img, index) => (
-                    <div key={index} className='project-image'>
-                        <div>{img.texto}</div>
-                        <img alt='img' src={`http://topturfmiami.system4book.com/repositorio/img/${img.nombre}`}/>
-                    </div>
+                        <div key={index} className='project-image'>
+                            <div>{img.texto}</div>
+                            <img alt='img' src={`http://topturfmiami.system4book.com/repositorio/img/${img.nombre}`} />
+                        </div>
                     ))}
-                    {/* <label htmlFor="file-upload"  className="custom-file-upload"  >
+                    {/* <label htmlFor="file-upload" name_proj={this.props.info[0][0].nombre_contacto} className="custom-file-upload"  >
                         <i className="fas fa-camera fa-2x"></i>
                     </label>
-                    <input id="file-upload" type="file" accept="image/*" name={this.props.info[0][0].nombre_contacto} onChange={this.grabImage} /> */}
+                    <input id="file-upload" type="file" accept="image/*" name_proj={this.props.info[0][0].nombre_contacto} onChange={this.grabImage} /> */}
+                    {/* <input type='file' id={this.props.info[0][0].nombre_contacto} onChange={this.grabImage}/>
+                    <button onClick={this.saveImage}>save</button> */}
                 </div>
                 {/* <Modal
                     ref={this.child}
+                    closeModalImg={this.closeModal}
                 >
                     <div className='project-images-modal'>
-                        <div>Proyecto: {this.props.p}</div>
+                        <div>Proyecto: {this.state.projectName}</div>
                         <textarea id='project-images-modal-textarea'/>
                         <canvas style={{ width: '100%' }} id="canvas"></canvas>
                     </div>

@@ -3,8 +3,11 @@ import axios from 'axios';
 import './style.css';
 import CONTACTDETAILS_INFO from '../../components/ContactDetails;Comp/Info';
 import CONTACTDETAILS_APPOINTMENTS from '../../components/ContactDetails;Comp/Appointments';
-import moment from 'moment';
 import LoadingBlock from '../../components/ContactDetails;Comp/LoadingBlock';
+import CONTACTDETAILS_ENDFUNCT from '../../components/ContactDetails;Comp/EndFunct';
+import CONTACTDETAILS_SMS from '../../components/ContactDetails;Comp/Sms';
+import CONTACTDETAILS_IMAGES from '../../components/ContactDetails;Comp/Images';
+import moment from 'moment';
 
 
 const token = ("; " + document.cookie).split("; s4book_id_user=").pop().split(";").shift()
@@ -14,26 +17,42 @@ class ContactDetails extends Component {
         super(props);
         this.state = {
             details: [],
+
             appointments: [],
             appoToday: [],
-            appoTomorrow: []
+            appoTomorrow: [],
+
+            sms: [],
+
+
+            loadAppo: false,
+            loadDet: false,
+            loadSms: false
         }
     }
 
     componentDidMount = () => {
         this.updateDetails()
         this.updateAppointments()
+        this.updateSms()
     }
 
     // details
 
     updateDetails = () => {
-        console.log(this.props.match.params.id)
+        //console.log(this.props.match.params.id)
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=detail2&contacto=${this.props.match.params.id}&e=${token}`)
             .then(res => {
-                //console.log(res.data)
+                //this.setState({details: []})
+                if (res.data[0][0].id === '0') {
+                    return this.props.history.goBack()
+                }
+                if (res.data[1][0].id === '0'){
+                    res.data[1] = []
+                }
+                console.log(res.data)
                 res.data[0][0].telefono = this.formatPhoneNumber(res.data[0][0].telefono)
-                this.setState({ details: res.data})
+                this.setState({ details: res.data, loadDet: true })
             })
     }
 
@@ -67,13 +86,14 @@ class ContactDetails extends Component {
     updateAppointments = () => {
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=agenda&contacto=${this.props.match.params.id}&e=${token}`)
             .then(res => {
+                this.setState({ appointments: [], appoToday: [], appoTomorrow: [] })
                 //console.log(res.data)
                 if (res.data === 10) {
-                    this.setState({ appointments: false })
+                    this.setState({ appointments: false, loadAppo: true })
                 } else {
                     this.SortAndFormatDate(res.data)
 
-                    this.setState({ appointments: res.data})
+                    this.setState({ appointments: res.data, loadAppo: true })
 
                 }
 
@@ -136,28 +156,76 @@ class ContactDetails extends Component {
         if (value === '0') return 'x'
     }
 
+    //Sms//////////////
 
+    updateSms = () => {
+        axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_tracking.php?i=sms_list&contacto=${this.props.match.params.id}&e=${token}`)
+            .then(res => {
+                if (res.data === 0) {
+                    return this.setState({ sms: false, loadSms: true })
+                }
+                console.log(res.data)
+                res.data[0].hora_mensaje = moment(res.data[0].hora_mensaje, 'HH:mm').format('a hh:mm')
+                this.setState({ sms: res.data.reverse(), loadSms: true })
+            })
+    }
+
+    // scrollSms = () => {
+    //     let element = document.getElementById('contactdetails-sms-scroll');
+    //     element.scrollTop = element.scrollHeight;
+    // }
 
 
     render() {
         return (
             <div>
                 <div>
-                    <div className='contactdetails-nav'>
-                        <div>{this.state.details[0][0].nombre} {this.state.details[0][0].apellido}</div>
-                        <div onClick={() => window.open(`tel:${this.state.details[0][0].telefono}`, '_self')}>{this.state.details[0][0].telefono}<i className="fas fa-phone fa-1x"></i></div>
-                        <div>{this.state.details[0][0].nombre_vendedor}</div>
-                    </div>
-                    <CONTACTDETAILS_INFO
-                        info={this.state.details[0][0]}
-                        match={this.props.match}
-                        updateNav={this.updateNav}
-                    />
-                    <CONTACTDETAILS_APPOINTMENTS
-                        appointments={this.state.appointments}
-                        appoToday={this.state.appoToday}
-                        appoTomorrow={this.state.appoTomorrow}
-                    />
+                    {this.state.loadAppo === true && this.state.loadDet === true && this.state.loadSms === true ? (
+                        <div className='contactdetails-nav'>
+                            <div>{this.state.details[0][0].nombre} {this.state.details[0][0].apellido}</div>
+                            <div onClick={() => window.open(`tel:${this.state.details[0][0].telefono}`, '_self')}>{this.state.details[0][0].telefono}<i className="fas fa-phone fa-1x"></i></div>
+                            <div>{this.state.details[0][0].nombre_vendedor}</div>
+                        </div>
+                    ) : null}
+                    {this.state.loadAppo === true && this.state.loadDet === true && this.state.loadSms === true ? (
+                        <CONTACTDETAILS_INFO
+                            info={this.state.details[0][0]}
+                            match={this.props.match}
+                            updateNav={this.updateNav}
+                        />
+                    ) : <LoadingBlock />}
+                    {this.state.loadAppo === true && this.state.loadDet === true && this.state.loadSms === true ? (
+                        <CONTACTDETAILS_APPOINTMENTS
+                            appointments={this.state.appointments}
+                            appoToday={this.state.appoToday}
+                            appoTomorrow={this.state.appoTomorrow}
+                            contactName={this.state.details[0][0].nombre + " " + this.state.details[0][0].apellido}
+                            match={this.props.match}
+                            updateAppointments={this.updateAppointments}
+                        />
+                    ) : <LoadingBlock />}
+                    {this.state.loadAppo === true && this.state.loadDet === true && this.state.loadSms === true ? (
+                        <CONTACTDETAILS_SMS
+                            smss={this.state.sms}
+                            info={this.state.details[0][0]}
+                            user={this.props.user}
+                            updateSms={this.updateSms}
+                        />
+                    ) : <LoadingBlock />}
+                    {this.state.loadAppo === true && this.state.loadDet === true && this.state.loadSms === true ? (
+                        <CONTACTDETAILS_IMAGES
+                            info={this.state.details[1]}
+                            infoCont={this.state.details[0][0]}
+                            updateImgs={this.updateDetails}
+                        />
+                    ) : <LoadingBlock />}
+                    {this.state.loadAppo === true && this.state.loadDet === true && this.state.loadSms === true ? (
+                        <CONTACTDETAILS_ENDFUNCT
+                            history={this.props.history}
+                            info={this.state.details[0][0]}
+                            user={this.props.user}
+                        />
+                    ) : null}
                 </div>
             </div>
         )

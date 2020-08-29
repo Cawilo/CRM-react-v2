@@ -25,3 +25,47 @@
 .contacts-loadingblock{
     margin-top: 4em;
 }
+
+/* add contact */
+#contacts-addcontact{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgb(41, 161, 41);
+    padding: 1em;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+#contacts-addcontact:active{
+    background: rgb(21, 83, 21);
+}
+
+.contacts-addcontact-modal{
+    padding: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+}
+.contacts-addcontact-modal>div:nth-child(1){
+    grid-column: 1/4;
+}
+.contacts-addcontact-modal>div:nth-child(5){
+    grid-column: 1/4;
+}
+.contacts-addcontact-modal>div:nth-child(6){
+    grid-column: 1/4;
+}
+.contacts-addcontact-modal>div:nth-child(7){
+    grid-column: 3/4;
+}
+.contacts-addcontact-modal>div:nth-child(7)>button{
+    background: rgb(32, 156, 32);
+    color: white;
+    font-weight: bold;
+    padding: 0.4em;
+}
+.contacts-addcontact-modal>div:nth-child(7)>button:active{
+    background: rgb(14, 71, 14);
+}
+

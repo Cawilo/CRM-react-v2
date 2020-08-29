@@ -26,6 +26,8 @@ input, button, textarea, select{
     width: 100%;
     box-sizing : border-box;
     border-radius: 3px;
+    resize: none;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 button{
@@ -93,8 +95,17 @@ select{
     -webkit-appearance: none;
 }
 
+.container{
+    padding-top: 4em;
+}
 
+#canvas{
+    width: 100%;
+}
 
+input[type="file"] {
+    display: none;
+}
 
 /*Telefono*/
 @media (max-width: 576px) {

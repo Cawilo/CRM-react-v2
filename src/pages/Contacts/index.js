@@ -4,6 +4,7 @@ import LoadingBlock from '../../components/Contacts;Comp/LoadingBlock';
 import NoItems from '../../components/Contacts;Comp/NoItems';
 import axios from 'axios'
 import './style.css';
+import Modal from '../../components/Global;Comp/Modal';
 
 const token = ("; " + document.cookie).split("; s4book_id_user=").pop().split(";").shift()
 class Contacts extends Component {
@@ -11,6 +12,7 @@ class Contacts extends Component {
 
     constructor(props) {
         super(props);
+        this.child = React.createRef();
         this.timer = null;
         this.state = {
             contacts: [],
@@ -19,7 +21,14 @@ class Contacts extends Component {
             options: [],
             selected: this.props.match.params.seller,
             buscar: '',
-            disable: false
+            disable: false,
+
+
+            newName: '',
+            newLastName: '',
+            newPhone: '',
+            newEmail: '',
+            newUbication: ''
         }
     }
 
@@ -57,6 +66,14 @@ class Contacts extends Component {
         }, this.adjustUrl)
     };
 
+
+    handleInputChangeNew = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
+
     adjustUrl = () => {
         this.props.history.replace(`/contactos/${this.state.date}/${this.state.selected}`)
         this.updateContacts()
@@ -74,7 +91,7 @@ class Contacts extends Component {
             })
     }
 
-    
+
 
     updateContacts = () => {
         this.setState({ contacts: [] })
@@ -123,6 +140,15 @@ class Contacts extends Component {
         if (value === '0') return 'x'
     }
 
+    crearContacto = event => {
+        event.preventDefault()
+        axios.post("https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=edit&id=0&nombre=" + this.state.newName + "&apellido=" + this.state.newLastName + "&email=" + this.state.newEmail + "&telefono=" + this.state.newPhone + "&direccion=" + this.state.newUbication + "&e=" + token)
+        .then(res => {
+            this.child.current.closeModal()
+            this.updateContacts()
+        })
+    }
+
     render() {
         return (
             <div>
@@ -160,7 +186,7 @@ class Contacts extends Component {
                         disable={this.state.disable}
                         history={this.props.history}
                     />
-                ) : this.state.contacts === false ? (<NoItems/>) : (
+                ) : this.state.contacts === false ? (<NoItems />) : (
 
                     <div className='contacts-loadingblock'>
                         <LoadingBlock />
@@ -172,6 +198,61 @@ class Contacts extends Component {
 
 
                 )}
+                <div id='contacts-addcontact' onClick={() => this.child.current.openModal()}><i className="fas fa-user-plus fa-2x"></i></div>
+                <Modal
+                    ref={this.child}
+                >
+                    <form onSubmit={this.crearContacto}>
+                        <div className='contacts-addcontact-modal'>
+                            <div>Crear Contacto</div>
+                            <div>
+                                <input
+                                    placeholder='Nombre (obligatorio)'
+                                    value={this.state.newName}
+                                    onChange={this.handleInputChangeNew}
+                                    name='newName'
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    placeholder='Apellido'
+                                    value={this.state.newLastName}
+                                    onChange={this.handleInputChangeNew}
+                                    name='newLastName'
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    placeholder='Telefono (obligatorio)'
+                                    value={this.state.newPhone}
+                                    onChange={this.handleInputChangeNew}
+                                    name='newPhone'
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    placeholder='Email'
+                                    value={this.state.newEmail}
+                                    onChange={this.handleInputChangeNew}
+                                    name='newEmail'
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    placeholder='Direccion'
+                                    value={this.state.newUbication}
+                                    onChange={this.handleInputChangeNew}
+                                    name='newUbication'
+                                />
+                            </div>
+                            <div>
+                                <button type='submit'>Crear</button>
+                            </div>
+                        </div>
+                    </form>
+                </Modal>
             </div>
         )
     }

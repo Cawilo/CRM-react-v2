@@ -1,0 +1,22 @@
+/* bottom */
+
+.contactdetails-endfunctionality{
+    margin-top: 2em;
+    text-align: right;
+    padding: 0.5em;
+}
+
+.contactdetails-endfunctionality>div{
+    display: inline-block;
+}
+.contactdetails-endfunctionality>div>button{
+    background: rgb(194, 47, 47);
+    color: white;
+    padding: 0.4em;
+    font-weight: bold;
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+}
+
+.contactdetails-endfunctionality>div>button:active{background: rgb(80, 20, 20);}

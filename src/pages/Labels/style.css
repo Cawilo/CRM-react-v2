@@ -1,0 +1,48 @@
+.labels-container{
+    padding: 0.5em;
+}
+
+.labels-adjust{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    margin-bottom: 0.7em;
+    grid-gap: 0.3em;
+}
+
+.labels-adjust>div:nth-child(4){
+    align-self: flex-end
+}
+.labels-adjust>div:nth-child(4)>button{
+    background: red;
+    padding: 0.7em;
+}
+
+.labels-print{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    margin-top: 1em;
+}
+
+.labels-print>button{
+    padding: 0.6em;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+}
+
+.labels-print>button:nth-child(1){
+    background: rgb(7, 187, 7);
+    color: white;
+}
+.labels-print>button:nth-child(1):active{
+    background:rgb(5, 88, 5);
+}
+
+.labels-print>button:nth-child(2){
+    grid-column: 3/3;
+    background: rgb(21, 133, 207);
+    color: white;
+}
+.labels-print>button:nth-child(2):active{
+    background: rgb(10, 59, 92);
+}

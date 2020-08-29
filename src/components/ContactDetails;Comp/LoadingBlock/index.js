@@ -3,7 +3,7 @@ import './style.css';
 
 
 const LoadingBlock = () => (
-    <div className='loading-block-appodetails'></div>
+    <div className='loading-block-contactDetails'></div>
 )
 
 export default LoadingBlock

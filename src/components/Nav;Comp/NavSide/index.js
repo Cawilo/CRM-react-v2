@@ -25,9 +25,9 @@ class NavSide extends Component {
 
                     <Link to='/'><div><i className="fas fa-money-bill-wave fa-sm"></i> Pagos</div></Link>
 
-                    <Link to='/'><div className='navSide-pattern'><i className="fas fa-envelope fa-sm"></i> Mensajeria</div></Link>
+                    <Link to='/mensajes'><div className='navSide-pattern' onClick={this.props.closeSide} ><i className="fas fa-envelope fa-sm"></i> Mensajes</div></Link>
 
-                    <Link to='/'><div><i className="fas fa-print fa-sm"></i> Etiquetas</div></Link>
+                    <Link to='/etiquetas'><div onClick={this.props.closeSide} ><i className="fas fa-print fa-sm"></i> Etiquetas</div></Link>
 
                     <Link to='/'><div className='navSide-pattern' onClick={this.logout}><i className="fas fa-sign-out-alt fa-sm"></i> Log Out</div></Link>
                 </div>

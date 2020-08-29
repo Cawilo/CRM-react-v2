@@ -44,6 +44,15 @@ class HOME_PROJECTS extends Component {
         window.location.href=`https://www.google.com/maps/search/${event.currentTarget.getAttribute('value')}`
     }
 
+    goProject = event => {
+        console.log(event.currentTarget.attributes.date.value)
+        let date = new Date();
+        date.setTime(date.getTime() + (8000));
+        let expiry = '; expires=' + date.toUTCString();
+        document.cookie = `projectScroll=${event.currentTarget.attributes.id.value}${expiry}; path=/`
+        this.props.history.push(`/proyectos/${event.currentTarget.attributes.date.value}`)
+    }
+
 
     render() {
         return (
@@ -60,7 +69,7 @@ class HOME_PROJECTS extends Component {
                 <div className='container-block-projects'>
                     {this.state.projects.length ? (
                         this.state.projects.slice(0, 5).map((project, index) => (
-                            <div key={index} className='container-block-projects-p' onClick={()=>this.props.history.push(`/proyectos/${this.state.date}/${project.id}/${project.id_labor}/${project.tipo}`)}>
+                            <div key={index} className='container-block-projects-p' date={this.state.date} id={project.id} onClick={this.goProject}>
                                 <div>{project.invoice}</div>
                                 <div>{project.nombre_contacto}</div>
                                 <div value={project.direccion} onClick={this.openGoogleMaps}><i className="fas fa-map-marker-alt fa-2x"></i></div>

@@ -1,0 +1,80 @@
+.messages{
+    margin-top: 1em;
+}
+
+.msg{
+    
+    background: rgb(105, 105, 105);
+    margin-bottom: 1em;
+    max-width: 300px;
+    width: fit-content;
+    word-wrap: break-word;
+    padding: 0.5em;
+    font-size: 0.9em;
+    margin-left: 0.3em;
+    border-radius: 3px;
+}
+
+.msg>div:nth-child(1){
+    color:#bebebe;
+    white-space: nowrap;
+}
+
+.msg-yours{
+    background: rgb(51, 51, 51);
+    clear: both;
+    float: right;
+}
+
+.messages>div:nth-child(2){
+    margin-bottom: 5em;
+    
+}
+
+
+.messages-sender {
+    position: fixed;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  bottom: 0px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.messages-sender>input{
+    padding: 1em;
+}
+
+
+/*Telefono*/
+@media (max-width: 576px) {
+    .messages-sender {
+        width: 90%;
+    }
+    
+}
+
+/*Tablet*/
+@media (min-width: 576px) {
+    .messages-sender {
+        width: 90%;
+    }
+    
+}
+
+/*Desktop*/
+@media (min-width: 768px) {
+    .messages-sender {
+        width: 450px;
+    }
+    
+    
+    
+}
+
+
+@supports (-webkit-touch-callout: none) {
+    .messages-sender{
+        bottom: 15px;
+    }
+}

@@ -63,6 +63,15 @@ class HOME_APPOINTMENTS extends Component {
             })
     }
 
+    goAppointment = event => {
+        console.log(event.currentTarget.attributes.id_cita.value)
+        let date = new Date();
+        date.setTime(date.getTime() + (8000));
+        let expiry = '; expires=' + date.toUTCString();
+        document.cookie = `appointmentScroll=${event.currentTarget.attributes.id_cita.value}${expiry}; path=/`
+        this.props.history.push('/citas')
+    }
+
     
 
     render() {
@@ -81,7 +90,7 @@ class HOME_APPOINTMENTS extends Component {
                 <div className='container-block-appointments'>
                     {this.state.appointments.length ? (
                         this.state.appointments.slice(0, 5).map((appointment, index) => (
-                            <div key={index} className='container-block-appointments-a'>
+                            <div key={index} className='container-block-appointments-a' id_cita={appointment.id_cita} onClick={this.goAppointment}>
                                 <div>{appointment.vendedor}</div>
                                 <div>{appointment.hora_agenda}</div>
                                 <div>{appointment.nombre} {appointment.apellido}</div>

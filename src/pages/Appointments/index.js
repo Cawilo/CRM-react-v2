@@ -5,6 +5,9 @@ import './style.css';
 import APPOINTMENTS_INFO from '../../components/Appointments;Comp/Info';
 import Modal from '../../components/Global;Comp/Modal';
 import LoadingBlock from '../../components/Appointments;Comp/LoadingBlock';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
 
 
 const token = ("; " + document.cookie).split("; s4book_id_user=").pop().split(";").shift()
@@ -12,6 +15,7 @@ class Appointments extends Component {
 
     constructor(props) {
         super(props)
+        this.timer = null;
         this.child = React.createRef();
         this.state = {
             appointments: [],
@@ -20,7 +24,9 @@ class Appointments extends Component {
 
             appoDetails: {},
             appoDetailsHour: '',
-            appoDetailsDate: ''
+            appoDetailsDate: '',
+
+            apposCalendar: []
         }
         this.openAppointment = this.openAppointment.bind(this)
     }
@@ -30,12 +36,17 @@ class Appointments extends Component {
         this.updateAppointments()
     }
 
+    componentWillUnmount = () => {
+        clearTimeout(this.timer);
+    }
+
+
     updateAppointments = () => {
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=citas_all&e=${token}`)
             .then(res => {
                 let contacts = []
                 for (let i = 0; i < res.data.length; i++) {
-                    
+
                     res.data[i].hora_agenda = moment(res.data[i].hora_agenda, 'HH:mm').format('hh:mm a')
                     if (res.data[i].hora_agenda.charAt(0) === "0") res.data[i].hora_agenda = res.data[i].hora_agenda.slice(1)
                     res.data[i].fecha_agenda_format = this.formatDate(res.data[i].fecha_agenda)
@@ -44,19 +55,35 @@ class Appointments extends Component {
                     if (this.props.user.id_rol_verf === 'seller') {
                         if (this.props.user.id === res.data[i].id_vendedor) {
 
-                            res.data[i].id_vendedor = this.assignSeller(res.data[i].id_vendedor)
+                            res.data[i].id_vendedor_n = this.assignSeller(res.data[i].id_vendedor)
                             this.groupAppointments(res.data[i])
                             contacts.push(res.data[i])
                         }
                     } else {
-                        res.data[i].id_vendedor = this.assignSeller(res.data[i].id_vendedor)
+                        res.data[i].id_vendedor_n = this.assignSeller(res.data[i].id_vendedor)
                         this.groupAppointments(res.data[i], i, res.data.length)
                         contacts = res.data
                     }
                 }
                 console.log(contacts)
-                this.setState({ appointments: contacts })
+                this.setState({ appointments: contacts }, this.afterLoad)
             })
+    }
+
+    afterLoad = () => {
+        setTimeout(() => {
+            if (("; " + document.cookie).split("; appointmentScroll=").pop().split(";").shift() && document.getElementById(("; " + document.cookie).split("; appointmentScroll=").pop().split(";").shift())) {
+                const y = document.getElementById(("; " + document.cookie).split("; appointmentScroll=").pop().split(";").shift()).getBoundingClientRect().top + window.pageYOffset + -90;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+                setTimeout(() => {
+                    document.getElementById(("; " + document.cookie).split("; appointmentScroll=").pop().split(";").shift()).style.filter = 'brightness(170%)'
+                    setTimeout(() => {
+                        document.getElementById(("; " + document.cookie).split("; appointmentScroll=").pop().split(";").shift()).style.filter = 'brightness(100%)'
+                    }, 500);
+                }, 600);
+            }
+        }, 500)
+        this.fullCalendar()
     }
 
     groupAppointments = (date, i, length) => {
@@ -116,6 +143,7 @@ class Appointments extends Component {
     }
 
     openAppointment = (id, contact, phone, ubication) => {
+        console.log(contact)
         axios.post(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=cita_edit&id=${id}&e=${token}`)
             .then(res => {
                 console.log(res.data)
@@ -146,8 +174,42 @@ class Appointments extends Component {
 
             })
         setTimeout(() => {
-
+            window.location.reload()
         }, 1000);
+    }
+
+
+    fullCalendar = () => {
+        let appos = this.state.appointments
+        let apposFull = []
+        for (let i = 0; i < appos.length; i++) {
+            //console.log(appos[i].id_cita)
+            let color;
+            if (appos[i].id_vendedor === "58") { color = "#D60606" }
+            else if (appos[i].id_vendedor === "64") { color = "#FE0AFB" }
+            else if (appos[i].id_vendedor === "53") { color = "#8891C2" }
+            else if (appos[i].id_vendedor === "57") { color = "#2A55FF" }
+            else if (appos[i].id_vendedor === "158") { color = "#607D8B" }
+            else if (appos[i].id_vendedor === "148") { color = "#2ba11b" }
+            else { color = "#a3a3a3" }
+            let obj = {
+                date: appos[i].fecha_agenda,
+                title: appos[i].vendedor + ' ' + appos[i].hora_agenda,
+                id_cita: appos[i].id_cita,
+                color: color,
+                ubication: appos[i].direccion,
+                phone: appos[i].telefono,
+                contact: appos[i].nombre + ' ' + appos[i].apellido
+            }
+            apposFull.push(obj)
+
+
+        }
+        this.setState({ apposCalendar: apposFull })
+    }
+
+    adjustValues = calEvent => {
+        this.openAppointment(calEvent.event._def.extendedProps.id_cita, calEvent.event._def.extendedProps.contact, calEvent.event._def.extendedProps.phone, calEvent.event._def.extendedProps.ubication)
     }
 
 
@@ -155,12 +217,21 @@ class Appointments extends Component {
         return (
             <div>
                 {this.state.appointments.length ? (
-
-                    <APPOINTMENTS_INFO
-                        appoToday={this.state.appoToday}
-                        appoTomorrow={this.state.appoTomorrow}
-                        openAppointment={this.openAppointment}
-                    />
+                    <div>
+                        <APPOINTMENTS_INFO
+                            appoToday={this.state.appoToday}
+                            appoTomorrow={this.state.appoTomorrow}
+                            openAppointment={this.openAppointment}
+                        />
+                        <FullCalendar
+                            plugins={[dayGridPlugin, interactionPlugin]}
+                            eventOrder="time"
+                            initialView="dayGridMonth"
+                            contentHeight="auto"
+                            events={this.state.apposCalendar}
+                            eventClick={this.adjustValues}
+                        />
+                    </div>
                 ) : (<div>
                     <LoadingBlock />
                     <LoadingBlock />

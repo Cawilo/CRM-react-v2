@@ -12,6 +12,8 @@ import Projects from './pages/Projects';
 import Contacts from './pages/Contacts';
 import ContactDetails from './pages/ContactDetails';
 import Appointments from './pages/Appointments';
+import Labels from './pages/Labels';
+import Messages from './pages/Messages';
 //Pages notauth
 import Login from './pages/Login';
 import ForgotPass from './pages/ForgotPass';
@@ -39,7 +41,7 @@ class App extends Component {
     axios.post("https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_mobile.php/?i=g&e=" + token)
       .then(res => {
         console.log(res.data)
-        // res.data.id_rol = '1'
+        // res.data.id_rol = '3'
         // res.data.id = '158'
         if (typeof res.data === "object" && res.data.usuario) {
           if (res.data.id_rol === '1' || res.data.id_rol === '2') {
@@ -106,6 +108,12 @@ class App extends Component {
             this.state.user.id_rol_verf !== 'worker' ? (
               <Appointments {...props} user={this.state.user} />
             ) : (<Redirect to='/' />)
+          )} />
+
+          <Route exact path='/etiquetas' component={Labels}/>
+
+          <Route exact path='/mensajes' render={(props) => (
+            <Messages {...props} user={this.state.user} />
           )} />
 
           <Route exact path='/' render={(props) => (

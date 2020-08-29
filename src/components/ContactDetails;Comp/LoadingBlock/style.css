@@ -1,8 +1,9 @@
-.loading-block-appodetails {
+.loading-block-contactDetails {
     background: linear-gradient(269deg, #1b1b1b, #2c2c2c);
     background-size: 400% 400%;
-    height: 200px;
-    margin-top: 0.5em;
+    height: 277px;
+    margin-top: 3em;
+    border-radius: 3px;
     -webkit-animation: AnimationName 1s ease infinite;
     -moz-animation: AnimationName 1s ease infinite;
     -o-animation: AnimationName 1s ease infinite;

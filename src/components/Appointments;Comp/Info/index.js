@@ -103,14 +103,14 @@ class APPOINTMENTS_INFO extends Component {
                     <div>HOY</div>
                     <div>
                         {this.props.appoToday.map((appo, index) => (
-                            <div key={index} className='appointments'>
+                            <div key={index} className='appointments' id={appo.id_cita}>
                                 <div className='appointments-appo' style={index % 2 === 0 ? { background: 'rgb(68, 68, 68)' } : { background: 'rgb(29, 29, 29)' }} appointment={appo.id_cita} id={`appointment${index}`} call={`call${index}`} idappo={appo.id_cita} nameappo={`${appo.nombre} ${appo.apellido}`} phoneappo={appo.telefono} ubicationappo={appo.direccion} onMouseDown={this.swipeDownPC} onMouseUp={this.swipeUpPC} onTouchStart={this.swipeDownMOBILE} onTouchEnd={this.swipeUpMOBILE}>
                                     <div>{appo.nombre} {appo.apellido}</div>
                                     <div>{appo.hora_agenda}</div>
                                     <div>{appo.fecha_agenda_format}</div>
                                     <div>{appo.observaciones || <br />}</div>
                                     <div>{appo.telefono}</div>
-                                    <div>{appo.id_vendedor}</div>
+                                    <div>{appo.id_vendedor_n}</div>
                                 </div>
                                 <div id={`call${index}`} cont={`appointment${index}`} onClick={() => window.open(`tel:${appo.telefono}`, '_self')}><i className="fas fa-phone fa-3x"></i></div>
                             </div>
@@ -123,14 +123,14 @@ class APPOINTMENTS_INFO extends Component {
                     <div>MAÑANA</div>
                     <div>
                         {this.props.appoTomorrow.map((appo, index) => (
-                            <div key={index} className='appointments'>
+                            <div key={index} className='appointments' id={appo.id_cita}>
                                 <div className='appointments-appo' style={index % 2 === 0 ? { background: 'rgb(68, 68, 68)' } : { background: 'rgb(29, 29, 29)' }} appointment={appo.id_cita} id={`appointment${index + this.props.appoToday.length}`} call={`call${index + this.props.appoToday.length}`} idappo={appo.id_cita} nameappo={`${appo.nombre} ${appo.apellido}`} phoneappo={appo.telefono} ubicationappo={appo.direccion} onMouseDown={this.swipeDownPC} onMouseUp={this.swipeUpPC} onTouchStart={this.swipeDownMOBILE} onTouchEnd={this.swipeUpMOBILE}>
                                     <div>{appo.nombre} {appo.apellido}</div>
                                     <div>{appo.hora_agenda}</div>
                                     <div>{appo.fecha_agenda_format}</div>
                                     <div>{appo.observaciones || <br />}</div>
                                     <div>{appo.telefono}</div>
-                                    <div>{appo.id_vendedor}</div>
+                                    <div>{appo.id_vendedor_n}</div>
                                 </div>
                                 <div id={`call${index + this.props.appoToday.length}`} cont={`appointment${index + this.props.appoToday.length}`} onClick={() => window.open(`tel:${appo.telefono}`, '_self')}><i className="fas fa-phone fa-3x"></i></div>
                             </div>

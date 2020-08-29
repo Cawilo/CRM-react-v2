@@ -75,3 +75,59 @@
 .appointment-modal>div:nth-child(9):active{
     background: rgb(32, 32, 32);
 }
+
+
+/* calendar */
+.fc-media-screen{
+    margin-bottom: 4em;
+}
+
+.fc-event-title, fc-sticky{
+    white-space: break-spaces;
+    font-size: 0.7em;
+}
+
+.fc-header-toolbar{
+    font-size: 0.7em;
+}
+.fc-toolbar-chunk{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.fc-event-main:active{
+    background: #bebebe;
+}
+
+
+
+
+
+
+/*Telefono*/
+@media (max-width: 576px) {
+    
+    
+}
+
+/*Tablet*/
+@media (min-width: 576px) {
+    
+    
+}
+
+/*Desktop*/
+@media (min-width: 768px) {
+    .fc-media-screen{
+       margin-left: -20em;
+       margin-right: -20em;
+       /* z-index: 999; */
+    }
+    .fc-event-title{
+        font-size: 1em;
+    }
+    
+    
+    
+    
+}
