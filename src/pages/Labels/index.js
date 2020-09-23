@@ -52,7 +52,6 @@ class Labels extends Component {
         let nonumber = true
         tags.splice(tagD, 1, "dwa")
         this.setState({ tags: tags, [`weight${tagD}`]: undefined })
-        console.log(this.state.tags)
         for (let i = 0; i < tags.length; i++) {
             if (typeof tags[i] === "number") {
                 nonumber = false
@@ -68,7 +67,6 @@ class Labels extends Component {
         let etq = []
         //let obj = `[[${this.state.weight0},${this.state.length0},%22${this.state.product0}%22]]`
         for (let i = 0; i < this.state.tags.length; i++) {
-            //console.log(this.state[`weight${i}`])
             etq.push([])
             etq[i].push(this.state[`weight${i}`], this.state[`length${i}`], this.state[`product${i}`])
         }

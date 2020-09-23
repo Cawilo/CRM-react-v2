@@ -2,7 +2,7 @@
   "name": "crm-react-v2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://tdcflorida.com/app-system4book/",
+  "homepage": "http://m.topturfmiami.com/",
   "dependencies": {
     "@fullcalendar/daygrid": "^5.3.0",
     "@fullcalendar/interaction": "^5.3.0",
@@ -16,6 +16,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-html-parser": "^2.0.2",
+    "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3"
   },

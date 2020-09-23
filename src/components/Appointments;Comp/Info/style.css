@@ -89,3 +89,8 @@
     background: rgb(19, 72, 85);
     transition: 0s
 }
+
+.appos-amount{
+    color: #bebebe;
+    font-size: 0.7em;
+}

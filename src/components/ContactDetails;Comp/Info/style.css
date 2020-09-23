@@ -11,7 +11,8 @@
 }
 
 .contactdetails-info>div>input{
-    padding: 0.6em;
+    padding: 0.8em;
+    font-size: 0.9em;
 }
 
 .contactdetails-info>div:nth-child(4){
@@ -35,4 +36,29 @@
 #contactdetails-info-save:active{
     background: rgb(22, 90, 33);
     transition: 0;
+}
+
+
+/* autocomplete */
+
+.location-search-input{
+    border: 0;
+    width: 100%;
+    padding: 0.4em;
+    border-radius: 3px;
+    word-break: break-all;
+    padding: 0.8em;
+    z-index: 4;
+    
+}
+.location-search-input:focus{outline: none;}
+.autocomplete-dropdown-container-info{
+    position: absolute;
+    width: 18em;
+    z-index: 4;
+}
+.suggestion-item{
+    padding: 0.3em;
+    border-bottom: 1px solid #313131;
+    z-index: 4;
 }

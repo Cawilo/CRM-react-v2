@@ -13,12 +13,10 @@ class CONTACTDETAILS_ENDFUNCT extends Component {
     }
 
     openDeleteConfirmation = () => {
-        console.log(this.props.info.id)
         this.child.current.openModal()
     }
 
     deleleContact = () => {
-        console.log(this.props.info.id)
         axios.post(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=delete&contacto=${this.props.info.id}&e=${token}`)
         .then(res => {
             if(res.data === 1){

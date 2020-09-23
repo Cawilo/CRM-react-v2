@@ -15,6 +15,7 @@ class NavSide extends Component {
             <div>
                 <div onClick={this.props.closeSide} className="overlaySide"></div>
                 <div className="navSide">
+                    <div>{this.props.user.nombre}</div>
                     <Link to='/'><div onClick={this.props.closeSide}><i className="fas fa-home fa-sm"></i> Home</div></Link>
 
                     <Link to={'/proyectos/'+moment().format('YYYY-MM-DD').toString()}><div onClick={this.props.closeSide} className='navSide-pattern'><i className="fas fa-project-diagram fa-sm"></i> Proyectos</div></Link>
@@ -23,13 +24,15 @@ class NavSide extends Component {
 
                     <Link to='/citas'>{this.props.user.id_rol_verf === 'admin' || this.props.user.id_rol_verf === 'seller'? (<div onClick={this.props.closeSide} className='navSide-pattern'><i className="fas fa-calendar-alt fa-sm"></i> Citas</div>):(null)}</Link>
 
-                    <Link to='/'><div><i className="fas fa-money-bill-wave fa-sm"></i> Pagos</div></Link>
+                    <Link to='/'><div onClick={this.props.closeSide}><i className="fas fa-money-bill-wave fa-sm"></i> Pagos</div></Link>
 
-                    <Link to='/mensajes'><div className='navSide-pattern' onClick={this.props.closeSide} ><i className="fas fa-envelope fa-sm"></i> Mensajes</div></Link>
+                    {/* <Link to='/mensajes'><div className='navSide-pattern' onClick={this.props.closeSide} ><i className="fas fa-envelope fa-sm"></i> Mensajes</div></Link> */}
 
-                    <Link to='/etiquetas'><div onClick={this.props.closeSide} ><i className="fas fa-print fa-sm"></i> Etiquetas</div></Link>
+                    <Link to='/etiquetas'><div className='navSide-pattern' onClick={this.props.closeSide} ><i className="fas fa-print fa-sm"></i> Etiquetas</div></Link>
 
-                    <Link to='/'><div className='navSide-pattern' onClick={this.logout}><i className="fas fa-sign-out-alt fa-sm"></i> Log Out</div></Link>
+                    <Link to='/ajustes'><div  onClick={this.props.closeSide} ><i className="fas fa-cog fa-sm"></i> Ajustes</div></Link>
+
+                    <Link to='/'><div onClick={this.logout} className='navSide-pattern'><i className="fas fa-sign-out-alt fa-sm"></i> Log Out</div></Link>
                 </div>
             </div>
         )

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+// eslint-disable-next-line
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter } from "react-router-dom"
 import { loadProgressBar } from 'axios-progress-bar';
 import './App.css';
 import axios from 'axios';
@@ -14,6 +16,8 @@ import ContactDetails from './pages/ContactDetails';
 import Appointments from './pages/Appointments';
 import Labels from './pages/Labels';
 import Messages from './pages/Messages';
+import Pay from './pages/Pay';
+import Settings from './pages/Settings';
 //Pages notauth
 import Login from './pages/Login';
 import ForgotPass from './pages/ForgotPass';
@@ -32,6 +36,7 @@ class App extends Component {
   componentDidMount = () => {
     loadProgressBar();
     this.authKey()
+    console.log(window.location.hash.split('/')[1])
 
   }
 
@@ -41,19 +46,30 @@ class App extends Component {
     axios.post("https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_mobile.php/?i=g&e=" + token)
       .then(res => {
         console.log(res.data)
-        // res.data.id_rol = '3'
-        // res.data.id = '158'
         if (typeof res.data === "object" && res.data.usuario) {
           if (res.data.id_rol === '1' || res.data.id_rol === '2') {
             res.data.id_rol_verf = 'admin'
           } else if (res.data.id_rol === '3') {
             res.data.id_rol_verf = 'seller'
           } else { res.data.id_rol_verf = 'worker' }
-          this.setState({ isAuthenticated: true, user: res.data })
+          this.setState({ isAuthenticated: true, user: res.data }, this.updateGraphics())
         } else {
           this.setState({ isAuthenticated: false })
         }
       })
+  }
+
+  updateGraphics = () => {
+    // const night = ("; " + document.cookie).split("; nightmode=").pop().split(";").shift();
+    // if (night === 'true') {
+    //   document.body.style.backgroundColor = '#262626'
+      
+    // } else {
+    //   document.body.style.backgroundColor = '#e3e3e3'
+
+
+    // }
+
   }
 
   openSide = () => {
@@ -82,7 +98,7 @@ class App extends Component {
     <Route>
       <NavTop
         openSide={this.openSide}
-        title={window.location.pathname.split('/')[1]}
+        title={window.location.hash.split('/')[1]}
       />
       <NavSide
         closeSide={this.closeSide}
@@ -110,10 +126,21 @@ class App extends Component {
             ) : (<Redirect to='/' />)
           )} />
 
-          <Route exact path='/etiquetas' component={Labels}/>
+          <Route exact path='/etiquetas' component={Labels} />
+
+          <Route exact path='/ajustes' render={(props) => (
+            this.state.user.id_rol_verf !== 'worker' ? (
+              <Settings {...props} nightmode={("; " + document.cookie).split("; nightmode=").pop().split(";").shift()} />
+            ) : (<Redirect to='/' />)
+          )} />
 
           <Route exact path='/mensajes' render={(props) => (
             <Messages {...props} user={this.state.user} />
+          )} />
+
+
+          <Route exact path='/pagos' render={(props) => (
+            <Pay {...props} user={this.state.user} />
           )} />
 
           <Route exact path='/' render={(props) => (
@@ -143,7 +170,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <HashRouter>
         <Switch>
           {this.state.isAuthenticated === true ? (
             <Route component={this.Authenticated} />
@@ -151,7 +178,7 @@ class App extends Component {
             <Route component={this.NotAuthenticated} />
           ) : null}
         </Switch>
-      </Router>
+      </HashRouter>
     )
   }
 

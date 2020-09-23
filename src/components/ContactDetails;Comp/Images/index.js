@@ -25,14 +25,11 @@ class CONTACTDETAILS_IMAGES extends Component {
     };
 
     grabImage = (event) => {
-        console.log(event.currentTarget)
-        console.log(event.target.files[0].name)
         //const { name } = event.currentTarget;
         let imgobj = {
             nombre: event.target.files[0].name,
             data: '',
         }
-        //console.log(event.target.files[0])
         //let images = []
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
@@ -53,7 +50,6 @@ class CONTACTDETAILS_IMAGES extends Component {
 
             this.setState({ toSaveImage: imgobj }, this.child.current.openModal())
             //this.child.current.openModal()
-            // console.log(name)
 
 
         }

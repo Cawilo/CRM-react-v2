@@ -26,6 +26,11 @@ box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.75);
     grid-gap: 0.5em;
 }
 
+#navTop-menu{
+
+    grid-column: 3/4;
+}
+
 #navTop-menu >button{
     padding: 0.5em;
     background: transparent;

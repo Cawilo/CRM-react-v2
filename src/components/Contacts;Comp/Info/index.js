@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './style.css'
+import axios from 'axios';
 
 
 
@@ -29,10 +30,9 @@ class CONTACTS_INFO extends Component {
         this.setState({ swipeYmobile: event.touches[0].clientY })
     }
     swipeUpMOBILE = event => {
-     
+
         if (this.props.disable) return
         event.preventDefault();
-        // console.log(event.touchmoved)
         if (this.state.contactOpen === event.currentTarget.id) {
             document.getElementById(this.state.contactOpen).style.marginRight = '0px'
             document.getElementById(this.state.contactOpen).style.marginLeft = '0px'
@@ -40,13 +40,9 @@ class CONTACTS_INFO extends Component {
             this.setState({ contactOpen: '' })
             return
         }
-        console.log('passing moblie')
         let valueX = event.changedTouches[0].pageX - this.state.swipeDownMOBILE
         let valueY = event.changedTouches[0].clientY - this.state.swipeYmobile
-        console.log(Math.abs(Math.round(valueY)))
         if (Math.abs(Math.round(valueX)) <= 10) {
-            // console.log(event.changedTouches[0].pageY)
-            // console.log(this.state.swipeYmobile)
 
             if (Math.abs(Math.round(valueY)) > 10) return
             return this.props.history.push(`/contactos/detalles/${document.getElementById(event.currentTarget.id).getAttribute('contact')}`)
@@ -57,7 +53,6 @@ class CONTACTS_INFO extends Component {
     // pc swipe///////////////////////
     swipeDownPC = event => {
         if (this.props.disable) return
-        // console.log(event.clientX)
 
         this.setState({ swipeDownPC: event.clientX })
 
@@ -65,7 +60,6 @@ class CONTACTS_INFO extends Component {
     swipeUpPC = event => {
         if (this.props.disable) return
         event.preventDefault();
-        // console.log(event.clientX)
         if (this.state.contactOpen === event.currentTarget.id) {
             document.getElementById(this.state.contactOpen).style.marginRight = '0px'
             document.getElementById(this.state.contactOpen).style.marginLeft = '0px'
@@ -73,7 +67,6 @@ class CONTACTS_INFO extends Component {
             this.setState({ contactOpen: '' })
             return
         }
-        //console.log('passing pc')
         if (event.clientX === this.state.swipeDownPC) {
             return this.props.history.push(`/contactos/detalles/${document.getElementById(event.currentTarget.id).getAttribute('contact')}`)
         }
@@ -83,7 +76,6 @@ class CONTACTS_INFO extends Component {
 
     //check swipe////////////////////////////
     checkSwipe = (event, swipeUp, type) => {
-        // console.log(event.currentTarget.attributes.call.value)
         let value;
         if (type === 'pc') value = this.state.swipeDownPC
         if (type === 'mobile') value = this.state.swipeDownMOBILE
@@ -102,20 +94,30 @@ class CONTACTS_INFO extends Component {
 
     }
 
-   
+    pickSeller = event => {
+        let token = ("; " + document.cookie).split("; s4book_id_user=").pop().split(";").shift();
+        console.log(event.currentTarget.id)
+        axios.post("https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=pick&contacto=" + event.currentTarget.attributes.contact.value + "&e=" + token)
+            .then(res => {
+                this.props.pickSeller()
+                document.getElementById(this.state.contactOpen).style.marginRight = '0px'
+                document.getElementById(this.state.contactOpen).style.marginLeft = '0px'
+                document.getElementById(this.state.callOpen).style.width = '0'
+            })
+    }
 
     render() {
         return (
             <div className='contacts'>
                 {this.props.contacts.map((contact, index) => (
                     <div className='contacts-contact' key={index}>
-                        <div className='contact-info' style={index % 2 === 0 ? {background: 'rgb(68, 68, 68)'}:null} contact={contact.id} id={`contact${index}`} call={`call${index}`} onMouseDown={this.swipeDownPC} onMouseUp={this.swipeUpPC} onTouchStart={this.swipeDownMOBILE} onTouchEnd={this.swipeUpMOBILE}>
+                        <div className='contact-info' style={index % 2 === 0 ? { background: 'rgb(68, 68, 68)' } : null} contact={contact.id} id={`contact${index}`} call={`call${index}`} onMouseDown={this.swipeDownPC} onMouseUp={this.swipeUpPC} onTouchStart={this.swipeDownMOBILE} onTouchEnd={this.swipeUpMOBILE}>
                             <div>{contact.nombre} {contact.apellido}</div>
                             <div>{contact.id_vendedor}</div>
                             <div>{contact.telefono}</div>
                             <div>{contact.status}</div>
                         </div>
-                        <div id={`call${index}`} cont={`contact${index}`} onClick={()=>window.open(`tel:${contact.telefono}`, '_self')}><i className="fas fa-phone fa-3x"></i></div>
+                        <div id={`call${index}`} cont={`contact${index}`} contact={contact.id} onClick={contact.id_vendedor !== 'Ningun Vendedor' ? () => window.open(`tel:${contact.telefono}`, '_self') : this.pickSeller}>{contact.id_vendedor !== 'Ningun Vendedor' ? <i className="fas fa-phone fa-3x"></i>:'Pick'}</div>
                     </div>
                 ))}
             </div>

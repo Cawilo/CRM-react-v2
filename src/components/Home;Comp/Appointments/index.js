@@ -35,36 +35,36 @@ class HOME_APPOINTMENTS extends Component {
         let appo = []
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=citas_all&e=${token}`)
             .then(res => {
-                console.log(res.data)
-                // console.log(this.props.user)
                 for (let i = 0; i < res.data.length; i++) {
-                    if (this.state.user.id_rol_verf === 'seller') {
-                        if (this.state.user.id === res.data[i].id_vendedor) {
-                            if (res.data[i].fecha_agenda === this.state.date) {
-                                appo.push(res.data[i])
-                            }
-                            res.data[i].hora_agenda = moment(res.data[i].hora_agenda, 'HH:mm').format('hh:mm a')
-                            if (res.data[i].hora_agenda.charAt(0) === "0") res.data[i].hora_agenda = res.data[i].hora_agenda.slice(1)
-                        }
-                    } else {
-                        if (res.data[i].fecha_agenda === this.state.date) {
-                            appo.push(res.data[i])
-                        }
-                        res.data[i].hora_agenda = moment(res.data[i].hora_agenda, 'HH:mm').format('hh:mm a')
-                        if (res.data[i].hora_agenda.charAt(0) === "0") res.data[i].hora_agenda = res.data[i].hora_agenda.slice(1)
+                    if (res.data[i].fecha_agenda === this.state.date) {
+                        appo.push(res.data[i])
                     }
+                    res.data[i].hora_agenda = moment(res.data[i].hora_agenda, 'HH:mm').format('hh:mm a')
+                    if (res.data[i].hora_agenda.charAt(0) === "0") res.data[i].hora_agenda = res.data[i].hora_agenda.slice(1)
+                    // if (this.state.user.id_rol_verf === 'seller') {
+                    //     if (this.state.user.id === res.data[i].id_vendedor) {
+                    //         if (res.data[i].fecha_agenda === this.state.date) {
+                    //             appo.push(res.data[i])
+                    //         }
+                    //         res.data[i].hora_agenda = moment(res.data[i].hora_agenda, 'HH:mm').format('hh:mm a')
+                    //         if (res.data[i].hora_agenda.charAt(0) === "0") res.data[i].hora_agenda = res.data[i].hora_agenda.slice(1)
+                    //     }
+                    // } else {
+                    //     if (res.data[i].fecha_agenda === this.state.date) {
+                    //         appo.push(res.data[i])
+                    //     }
+                    //     res.data[i].hora_agenda = moment(res.data[i].hora_agenda, 'HH:mm').format('hh:mm a')
+                    //     if (res.data[i].hora_agenda.charAt(0) === "0") res.data[i].hora_agenda = res.data[i].hora_agenda.slice(1)
+                    // }
                 }
                 if (!appo.length) appo = false
                 this.setState({ appointments: appo })
-                // console.log('////Appointments//////')
-                // console.log(this.state.appointments)
 
 
             })
     }
 
     goAppointment = event => {
-        console.log(event.currentTarget.attributes.id_cita.value)
         let date = new Date();
         date.setTime(date.getTime() + (8000));
         let expiry = '; expires=' + date.toUTCString();
@@ -72,13 +72,13 @@ class HOME_APPOINTMENTS extends Component {
         this.props.history.push('/citas')
     }
 
-    
+
 
     render() {
         return (
             <div className='container-block'>
                 <div>
-                    <div className='container-block-title'>Citas</div>
+                    <div className='container-block-title' onClick={()=>this.props.history.push('/citas')}>Citas</div>
                     <div className='container-block-extra'><input
                         type='date'
                         className='input-date-block'

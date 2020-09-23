@@ -31,6 +31,12 @@
     transition: 0.5s;
 }
 
+.navSide>div:nth-child(1){
+    white-space: nowrap;
+    padding: 0.5em;
+    background: #363636;
+}
+
 .navSide>a>div {
     width: 100%;
     padding: 0.5em;

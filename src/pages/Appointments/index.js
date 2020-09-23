@@ -25,6 +25,7 @@ class Appointments extends Component {
             appoDetails: {},
             appoDetailsHour: '',
             appoDetailsDate: '',
+            adj: true,
 
             apposCalendar: []
         }
@@ -52,20 +53,19 @@ class Appointments extends Component {
                     res.data[i].fecha_agenda_format = this.formatDate(res.data[i].fecha_agenda)
                     res.data[i].telefono = this.formatPhoneNumber(res.data[i].telefono)
 
-                    if (this.props.user.id_rol_verf === 'seller') {
-                        if (this.props.user.id === res.data[i].id_vendedor) {
+                    // if (this.props.user.id_rol_verf === 'seller') {
+                    //     if (this.props.user.id === res.data[i].id_vendedor) {
 
                             res.data[i].id_vendedor_n = this.assignSeller(res.data[i].id_vendedor)
                             this.groupAppointments(res.data[i])
                             contacts.push(res.data[i])
-                        }
-                    } else {
-                        res.data[i].id_vendedor_n = this.assignSeller(res.data[i].id_vendedor)
-                        this.groupAppointments(res.data[i], i, res.data.length)
-                        contacts = res.data
-                    }
+                        // }
+                    // } else {
+                    //     res.data[i].id_vendedor_n = this.assignSeller(res.data[i].id_vendedor)
+                    //     this.groupAppointments(res.data[i], i, res.data.length)
+                    //     contacts = res.data
+                    // }
                 }
-                console.log(contacts)
                 this.setState({ appointments: contacts }, this.afterLoad)
             })
     }
@@ -92,23 +92,22 @@ class Appointments extends Component {
             today.push(date)
             this.setState({ appoToday: today })
 
-            if (i + 1 === length) {
-                if (!this.state.appoToday.length) this.setState({ appoToday: false })
-            }
+            // if (i + 1 === length) {
+            //     if (!this.state.appoToday.length) this.setState({ appoToday: false })
+            // }
         }
         if (date.fecha_agenda === moment().add(1, 'days').format('YYYY-MM-DD').toString()) {
             let tomorrow = this.state.appoTomorrow
             tomorrow.push(date)
             this.setState({ appoTomorrow: tomorrow })
-            //console.log(i)
 
         }
+
         if (i + 1 === length) {
             if (!this.state.appoTomorrow.length) this.setState({ appoTomorrow: false })
+            if (!this.state.appoToday.length) this.setState({ appoToday: false, adj: false })
         }
-        if (i + 1 === length) {
-            if (!this.state.appoToday.length) this.setState({ appoToday: false })
-        }
+      
     }
 
     formatPhoneNumber = (str) => {
@@ -143,10 +142,8 @@ class Appointments extends Component {
     }
 
     openAppointment = (id, contact, phone, ubication) => {
-        console.log(contact)
         axios.post(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=cita_edit&id=${id}&e=${token}`)
             .then(res => {
-                console.log(res.data)
                 res.data[0].contacto = contact
                 res.data[0].telefono = phone
                 res.data[0].direccion = ubication
@@ -183,7 +180,6 @@ class Appointments extends Component {
         let appos = this.state.appointments
         let apposFull = []
         for (let i = 0; i < appos.length; i++) {
-            //console.log(appos[i].id_cita)
             let color;
             if (appos[i].id_vendedor === "58") { color = "#D60606" }
             else if (appos[i].id_vendedor === "64") { color = "#FE0AFB" }
@@ -222,6 +218,7 @@ class Appointments extends Component {
                             appoToday={this.state.appoToday}
                             appoTomorrow={this.state.appoTomorrow}
                             openAppointment={this.openAppointment}
+                            adj={this.state.adj}
                         />
                         <FullCalendar
                             plugins={[dayGridPlugin, interactionPlugin]}

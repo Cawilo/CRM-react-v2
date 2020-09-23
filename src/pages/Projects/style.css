@@ -30,7 +30,7 @@
 /* search */
 
 .project-nav{
-  background: rgb(27, 27, 27);
+  background: rgb(19, 19, 19);
   position: fixed;
   width: 300px;
   transform: translate(-50%, -50%);
@@ -42,6 +42,12 @@
 -moz-box-shadow: -4px 23px 12px -13px rgba(0,0,0,0.75);
 box-shadow: -4px 23px 12px -13px rgba(0,0,0,0.75);
  
+}
+
+.project-nav>input{
+  background: rgb(19, 19, 19);
+  font-weight: bold;
+  font-size: 1em;
 }
 
 

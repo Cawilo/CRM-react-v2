@@ -47,6 +47,11 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1em;
 }
+
+.contacts-addcontact-modal>div>input{
+    background: rgb(46, 46, 46);
+    padding: 0.8em;
+}
 .contacts-addcontact-modal>div:nth-child(1){
     grid-column: 1/4;
 }
@@ -67,5 +72,16 @@
 }
 .contacts-addcontact-modal>div:nth-child(7)>button:active{
     background: rgb(14, 71, 14);
+}
+
+.input-location-addcont{
+    background: rgb(46, 46, 46);
+}
+
+
+.autocomplete-dropdown-container-add{
+    position: fixed;
+    width: 18em;
+    z-index: 4;
 }
 

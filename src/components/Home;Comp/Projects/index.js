@@ -32,8 +32,6 @@ class HOME_PROJECTS extends Component {
         this.setState({projects: []})
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_labor.php?i=labor&f=${this.state.date}&e=${token}`)
             .then(res => {
-                console.log('////Projects////')
-                console.log(res.data)
                 if (res.data === 5) return this.setState({ projects: false })
                 this.setState({ projects: res.data[0] })
             })
@@ -45,7 +43,6 @@ class HOME_PROJECTS extends Component {
     }
 
     goProject = event => {
-        console.log(event.currentTarget.attributes.date.value)
         let date = new Date();
         date.setTime(date.getTime() + (8000));
         let expiry = '; expires=' + date.toUTCString();
@@ -58,7 +55,7 @@ class HOME_PROJECTS extends Component {
         return (
             <div className='container-block'>
                 <div>
-                    <div className='container-block-title'>Proyectos</div>
+                    <div className='container-block-title' onClick={()=>this.props.history.push('/proyectos/'+moment().format('YYYY-MM-DD').toString())}>Proyectos</div>
                     <div className='container-block-extra'><input
                         type='date'
                         value={this.state.date}

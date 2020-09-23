@@ -6,6 +6,7 @@ import NoItems from '../NoItems';
 import LoadingBlock from '../LodingBlock';
 import SeeMore from '../SeeMore';
 
+
 const token = ("; " + document.cookie).split("; s4book_id_user=").pop().split(";").shift();
 class HOME_CONTACTS extends Component {
 
@@ -23,9 +24,7 @@ class HOME_CONTACTS extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.state.user)
         this.populateSelect()
-        // console.log(this.state.user.id)
     }
 
     handleInputChange = event => {
@@ -38,8 +37,6 @@ class HOME_CONTACTS extends Component {
     populateSelect = () => {
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=ven&e=${token}`)
             .then(res => {
-                // console.log('/////Sellers////')
-                // console.log(res.data)
                 for (let i = 0; i < res.data.length; i++) { if (this.state.user.id === res.data[i].id) this.setState({ selected: this.state.user.id }) }
                 this.setState({ options: res.data })
                 this.updateContacts()
@@ -51,8 +48,6 @@ class HOME_CONTACTS extends Component {
         if (this.state.user.id_rol_verf === 'seller') this.setState({ selected: this.state.user.id })
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=grid&f1=${this.state.date}&f2=${this.state.date}&ven=${this.state.selected}&text=&e=${token}`)
             .then(res => {
-                console.log('////Contacts////')
-                console.log(res.data)
                 if (res.data === 0) return this.setState({ contacts: false })
                 for (let i = 0; i < res.data.length; i++) {
                     let telefono = this.formatPhoneNumber(res.data[i].telefono)
@@ -73,7 +68,6 @@ class HOME_CONTACTS extends Component {
     }
 
     goPage = event => {
-        console.log(event.currentTarget.attributes.value.value)
         this.props.history.push(`/contactos/detalles/${event.currentTarget.attributes.value.value}`)
     }
 
@@ -81,7 +75,7 @@ class HOME_CONTACTS extends Component {
         return (
             <div className='container-block'>
                 <div>
-                    <div className='container-block-title'>Contactos</div>
+                    <div className='container-block-title' onClick={()=>this.props.history.push('/contactos/'+moment().format('YYYY-MM-DD').toString()+'/todos')}>Contactos</div>
                     <div className='container-block-extra'>
                         {this.state.user.id_rol_verf === 'admin' ? (
                             <select value={this.state.selected} onChange={this.handleInputChange} name='selected'>

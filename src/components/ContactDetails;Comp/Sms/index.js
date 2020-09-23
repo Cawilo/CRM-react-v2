@@ -36,7 +36,6 @@ class CONTACTDETAILS_SMS extends Component {
 
 
     openModalSms = () => {
-        //console.log('fseefs')
         this.setState({ details: {}, message: '', idmessage: '', title: '', template: 'default', language: '1', enableInfo: false })
         let details = {
             templatesTRANS: [],
@@ -44,7 +43,6 @@ class CONTACTDETAILS_SMS extends Component {
         }
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_tracking.php?i=sms_templates&e=${token}`)
             .then(res => {
-                console.log(res.data)
                 for (let i = 0; i < res.data.length; i++) {
 
 
@@ -70,13 +68,10 @@ class CONTACTDETAILS_SMS extends Component {
 
     handleChangeTem(event) {
         this.setState({ template: event.target.value });
-        //console.log(event.target.value)
         let tem = this.state.details.templatesTRANS
         for (let i = 0; i < tem.length; i++) {
-            //console.log(tem[i])
             if (tem[i].id === event.target.value) {
                 if (this.state.language === "1") {
-                    //console.log(tem[i].messageESP)
 
                     let message = tem[i].messageESP
 
@@ -84,14 +79,12 @@ class CONTACTDETAILS_SMS extends Component {
                     message = message.replace("[nombre_vendedor]", this.props.user.nombre)
                     message = message.replace("[telefono_v]", this.props.user.telefono)
                     message = message.replace("[link_estimado]", '')
-                    //console.log(message)
                     let title = tem[i].titleESP
                     title = title.replace("[id]", '')
 
 
                     this.setState({ message: message, idmessage: tem[i].id, title: title })
                 } else if (this.state.language === "2") {
-                    //console.log(tem[i].messageING)
                     let message = tem[i].messageING
 
                     message = message.replace("[nombre_cliente]", this.props.info.nombre + ' ' + this.props.info.apellido)
@@ -115,7 +108,6 @@ class CONTACTDETAILS_SMS extends Component {
         let tem = this.state.details.templatesTRANS
         if (this.state.language === "1") {
             for (let i = 0; i < tem.length; i++) {
-                //console.log(tem[i])
                 if (this.state.idmessage === tem[i].id) {
                     let message = tem[i].messageING
 
@@ -131,7 +123,6 @@ class CONTACTDETAILS_SMS extends Component {
             }
         } else if (this.state.language === "2") {
             for (let i = 0; i < tem.length; i++) {
-                //console.log(tem[i])
                 if (this.state.idmessage === tem[i].id) {
                     let message = tem[i].messageESP
 

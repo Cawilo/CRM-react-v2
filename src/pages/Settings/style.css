@@ -1,0 +1,21 @@
+.ajustes-container{
+    margin: 0.5em
+}
+
+.ajustes-nightmode{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    font-size: 1.5em;
+}
+
+.ajustes-nightmode>button{
+    font-weight: bold;
+    background: transparent;
+    color: rgb(49, 149, 216);
+    border-radius: 3px;
+    border: solid 1px rgb(49, 149, 216);
+}
+.ajustes-nightmode>button:active{
+    background: rgb(49, 149, 216);
+    color: white;
+}

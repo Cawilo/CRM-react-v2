@@ -23,7 +23,6 @@ class LOGIN_LOG extends Component {
                 if (res.data === 1 || res.data === 2 || res.data === 3) {
                     this.setState({ validate: true, disable: false })
                 } else {
-                    console.log(res.data)
                     let date = new Date();
                     date.setTime(date.getTime() + (149 * 24 * 60 * 60 * 1000));
                     let expiry = '; expires=' + date.toUTCString();

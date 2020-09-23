@@ -5,6 +5,10 @@ import NoItems from '../../components/Contacts;Comp/NoItems';
 import axios from 'axios'
 import './style.css';
 import Modal from '../../components/Global;Comp/Modal';
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+} from 'react-places-autocomplete';
 
 const token = ("; " + document.cookie).split("; s4book_id_user=").pop().split(";").shift()
 class Contacts extends Component {
@@ -76,32 +80,29 @@ class Contacts extends Component {
 
     adjustUrl = () => {
         this.props.history.replace(`/contactos/${this.state.date}/${this.state.selected}`)
-        this.updateContacts()
+        this.updateContacts(0)
     }
 
     populateSelect = () => {
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=ven&e=${token}`)
             .then(res => {
-                // console.log('/////Sellers////')
-                //console.log(res.data)
 
                 for (let i = 0; i < res.data.length; i++) { if (this.state.user.id === res.data[i].id) this.setState({ selected: this.state.user.id }) }
                 this.setState({ options: res.data })
-                this.updateContacts()
+                this.updateContacts(0)
             })
     }
 
 
 
-    updateContacts = () => {
-        this.setState({ contacts: [] })
+    updateContacts = value => {
+        if(value === 0){this.setState({ contacts: [] })}
         let t = this.state.date
         if (this.state.buscar) t = ''
         if (this.state.user.id_rol_verf === 'seller') this.setState({ selected: this.state.user.id })
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=grid&f1=${t}&f2=${this.state.date}&ven=${this.state.selected}&text=${this.state.buscar}&e=${token}`)
             .then(res => {
-                // console.log('////Contacts////')
-                console.log(res.data)
+                //console.log(res.data)
                 if (res.data === 0) return this.setState({ contacts: false })
                 for (let i = 0; i < res.data.length; i++) {
                     let phone = this.formatPhoneNumber(res.data[i].telefono)
@@ -137,16 +138,40 @@ class Contacts extends Component {
         if (value === '108') return 'Raul Capelan'
         if (value === '57') return 'Ruben Echeverria'
         if (value === '58') return 'Yormar Rincon'
-        if (value === '0') return 'x'
+        if (value === '0') return 'Ningun Vendedor'
     }
 
     crearContacto = event => {
         event.preventDefault()
         axios.post("https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=edit&id=0&nombre=" + this.state.newName + "&apellido=" + this.state.newLastName + "&email=" + this.state.newEmail + "&telefono=" + this.state.newPhone + "&direccion=" + this.state.newUbication + "&e=" + token)
-        .then(res => {
-            this.child.current.closeModal()
-            this.updateContacts()
+            .then(res => {
+                this.child.current.closeModal()
+                this.updateContacts()
+            })
+    }
+
+    handleInputDic = newUbication => {
+        this.setState({ newUbication });
+    };
+
+    handleSelect = newUbication => {
+        console.log(newUbication)
+        geocodeByAddress(newUbication)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+        this.setState({newUbication: newUbication})
+    };
+
+    openAddContact = () => {
+        this.setState({
+            newName: '',
+            newLastName: '',
+            newPhone: '',
+            newEmail: '',
+            newUbication: ''
         })
+        this.child.current.openModal()
     }
 
     render() {
@@ -185,6 +210,7 @@ class Contacts extends Component {
                         contacts={this.state.contacts}
                         disable={this.state.disable}
                         history={this.props.history}
+                        pickSeller={()=>this.updateContacts('pick')}
                     />
                 ) : this.state.contacts === false ? (<NoItems />) : (
 
@@ -198,7 +224,7 @@ class Contacts extends Component {
 
 
                 )}
-                <div id='contacts-addcontact' onClick={() => this.child.current.openModal()}><i className="fas fa-user-plus fa-2x"></i></div>
+                <div id='contacts-addcontact' onClick={this.openAddContact}><i className="fas fa-user-plus fa-2x"></i></div>
                 <Modal
                     ref={this.child}
                 >
@@ -240,12 +266,44 @@ class Contacts extends Component {
                                 />
                             </div>
                             <div>
-                                <input
-                                    placeholder='Direccion'
-                                    value={this.state.newUbication}
-                                    onChange={this.handleInputChangeNew}
-                                    name='newUbication'
-                                />
+                                <PlacesAutocomplete
+                                    value={this.state.newUbication || ''}
+                                    onChange={this.handleInputDic}
+                                    onSelect={this.handleSelect}
+                                >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div>
+                                            <input
+                                                {...getInputProps({
+                                                    placeholder: 'Search Places ...',
+                                                    className: 'location-search-input input-location-addcont',
+                                                })}
+                                            />
+                                            <div className="autocomplete-dropdown-container-add">
+                                                {loading && <div>Loading...</div>}
+                                                {suggestions.map((suggestion, index) => {
+                                                    const className = suggestion.active
+                                                        ? 'suggestion-item--active'
+                                                        : 'suggestion-item';
+                                                    // inline style for demonstration purpose
+                                                    const style = suggestion.active
+                                                        ? { backgroundColor: '#bebebe', cursor: 'pointer', color: "black", padding: "0.3em" }
+                                                        : { backgroundColor: '#ffffff', cursor: 'pointer', color: "black" };
+                                                    return (
+                                                        <div key={index}
+                                                            {...getSuggestionItemProps(suggestion, {
+                                                                className,
+                                                                style,
+                                                            })}
+                                                        >
+                                                            <span>{suggestion.description}</span>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                </PlacesAutocomplete>
                             </div>
                             <div>
                                 <button type='submit'>Crear</button>

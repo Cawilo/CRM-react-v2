@@ -98,10 +98,16 @@
 .appodetails-modal>div:nth-child(4){
     grid-column: 1/4;
 }
+.appodetails-modal>input{
+    background: rgb(46, 46, 46);
+    padding: 0.5em;
+    font-size: 0.9em;
+}
 
 .appodetails-modal>div:nth-child(4)>textarea{
-    background: rgb(24, 24, 24);
+    background: rgb(46, 46, 46);
     color: white;
+    font-size: 0.9em;
 }
 
 .appodetails-modal>div:nth-child(5){

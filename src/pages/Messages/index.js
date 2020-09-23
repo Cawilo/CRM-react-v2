@@ -44,7 +44,7 @@ class Messages extends Component {
         
         axiosWithoutProgress.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_message.php?i=msg&e=${token}`)
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 this.setState({ messages: res.data })
                 if(this.state.scroolAdj === true) {
                     
@@ -68,7 +68,7 @@ class Messages extends Component {
             <div className='messages'>
                 <div className='messages-container'>
                     {this.state.messages.map((msg, index) => (
-                        <div key={index} className={`msg ${this.props.user.id === msg.id_trabajador ? 'msg-yours':''}`}>
+                        <div key={index} className={`msg`}>
                             <div>{msg.nombre_trabajador}</div>
                             <div>{ReactHtmlParser(msg.mensaje)}</div>
                         </div>
@@ -78,14 +78,14 @@ class Messages extends Component {
                 <div style={{ float: "left", clear: "both" }}
                     ref={(el) => { this.messagesEnd = el; }}>
                 </div>
-                <div className='messages-sender'>
+                {/* <div className='messages-sender'>
                     <input
                         onFocus={() => setTimeout(() => {
                             this.scrollToBottom()
                         }, 150)}
                     />
                     <button>Send</button>
-                </div>
+                </div> */}
             </div>
         )
     }

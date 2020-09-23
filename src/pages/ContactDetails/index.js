@@ -40,7 +40,6 @@ class ContactDetails extends Component {
     // details
 
     updateDetails = () => {
-        //console.log(this.props.match.params.id)
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=detail2&contacto=${this.props.match.params.id}&e=${token}`)
             .then(res => {
                 //this.setState({details: []})
@@ -50,7 +49,6 @@ class ContactDetails extends Component {
                 if (res.data[1][0].id === '0'){
                     res.data[1] = []
                 }
-                console.log(res.data)
                 res.data[0][0].telefono = this.formatPhoneNumber(res.data[0][0].telefono)
                 this.setState({ details: res.data, loadDet: true })
             })
@@ -66,18 +64,8 @@ class ContactDetails extends Component {
         return str
     }
 
-    updateNav = (name, phone, lastname) => {
-        this.setState(prevState => ({
-            details: [
-                [{
-                    ...prevState.details,
-                    nombre: name,
-                    apellido: lastname,
-                    telefono: this.formatPhoneNumber(phone),
-                    nombre_vendedor: this.state.details[0][0].nombre_vendedor
-                }]
-            ]
-        }))
+    updateNav = () => {
+        this.updateDetails()
     }
 
 
@@ -87,7 +75,6 @@ class ContactDetails extends Component {
         axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=agenda&contacto=${this.props.match.params.id}&e=${token}`)
             .then(res => {
                 this.setState({ appointments: [], appoToday: [], appoTomorrow: [] })
-                //console.log(res.data)
                 if (res.data === 10) {
                     this.setState({ appointments: false, loadAppo: true })
                 } else {
@@ -127,8 +114,6 @@ class ContactDetails extends Component {
 
             }
         }
-        console.log(this.state.appoToday)
-        console.log(this.state.appoTomorrow)
 
         data.sort((a, b) => {
 
@@ -164,7 +149,6 @@ class ContactDetails extends Component {
                 if (res.data === 0) {
                     return this.setState({ sms: false, loadSms: true })
                 }
-                console.log(res.data)
                 res.data[0].hora_mensaje = moment(res.data[0].hora_mensaje, 'HH:mm').format('a hh:mm')
                 this.setState({ sms: res.data.reverse(), loadSms: true })
             })

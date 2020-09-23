@@ -27,3 +27,38 @@
 .container-block-extra{
     color: #bebebe
 }
+
+.home-buttons{
+    margin: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.5em;
+}
+
+.home-buttons>button{
+    padding: 0.6em;
+    font-weight: bold;
+    color: white;
+    font-size: 1em;
+}
+
+.home-buttons>button:nth-child(1){
+    background: rgb(48, 100, 197);
+}
+.home-buttons>button:nth-child(1):active{
+    background: rgb(23, 48, 94);
+}
+
+.home-buttons>button:nth-child(2){
+    background: rgb(197, 48, 110);
+}
+.home-buttons>button:nth-child(2):active{
+    background: rgb(99, 25, 56);
+}
+
+.home-buttons>button:nth-child(3){
+    background: rgb(59, 184, 90);
+}
+.home-buttons>button:nth-child(3):active{
+    background: rgb(24, 75, 37);
+}

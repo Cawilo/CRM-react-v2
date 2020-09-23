@@ -25,7 +25,6 @@ class APPOINTMENTS_INFO extends Component {
 
         if (this.props.disable) return
         event.preventDefault();
-        // console.log(event.touchmoved)
         if (this.state.appointmentOpen === event.currentTarget.id) {
             document.getElementById(this.state.appointmentOpen).style.marginRight = '0px'
             document.getElementById(this.state.appointmentOpen).style.marginLeft = '0px'
@@ -33,13 +32,9 @@ class APPOINTMENTS_INFO extends Component {
             this.setState({ appointmentOpen: '' })
             return
         }
-        console.log('passing moblie')
         let valueX = event.changedTouches[0].pageX - this.state.swipeDownMOBILE
         let valueY = event.changedTouches[0].clientY - this.state.swipeYmobile
-        console.log(Math.abs(Math.round(valueY)))
         if (Math.abs(Math.round(valueX)) <= 10) {
-            // console.log(event.changedTouches[0].pageY)
-            // console.log(this.state.swipeYmobile)
 
             if (Math.abs(Math.round(valueY)) > 10) return
             return this.props.openAppointment(event.currentTarget.attributes.idappo.value, event.currentTarget.attributes.nameappo.value, event.currentTarget.attributes.phoneappo.value, event.currentTarget.attributes.ubicationappo.value)
@@ -50,7 +45,6 @@ class APPOINTMENTS_INFO extends Component {
     // pc swipe///////////////////////
     swipeDownPC = event => {
         if (this.props.disable) return
-        // console.log(event.clientX)
 
         this.setState({ swipeDownPC: event.clientX })
 
@@ -58,7 +52,6 @@ class APPOINTMENTS_INFO extends Component {
     swipeUpPC = event => {
         if (this.props.disable) return
         event.preventDefault();
-        // console.log(event.clientX)
         if (this.state.appointmentOpen === event.currentTarget.id) {
             document.getElementById(this.state.appointmentOpen).style.marginRight = '0px'
             document.getElementById(this.state.appointmentOpen).style.marginLeft = '0px'
@@ -66,7 +59,6 @@ class APPOINTMENTS_INFO extends Component {
             this.setState({ appointmentOpen: '' })
             return
         }
-        //console.log('passing pc')
         if (event.clientX === this.state.swipeDownPC) {
             return this.props.openAppointment(event.currentTarget.attributes.idappo.value, event.currentTarget.attributes.nameappo.value, event.currentTarget.attributes.phoneappo.value, event.currentTarget.attributes.ubicationappo.value)
         }
@@ -76,7 +68,6 @@ class APPOINTMENTS_INFO extends Component {
 
     //check swipe////////////////////////////
     checkSwipe = (event, swipeUp, type) => {
-        // console.log(event.currentTarget.attributes.call.value)
         let value;
         if (type === 'pc') value = this.state.swipeDownPC
         if (type === 'mobile') value = this.state.swipeDownMOBILE
@@ -98,9 +89,9 @@ class APPOINTMENTS_INFO extends Component {
     render() {
         return (
             <div>
-                {this.props.appoToday.length ? (
+                {/* {this.props.appoToday.length ? (
                 <div className='appointments-block'>
-                    <div>HOY</div>
+                    <div><span className='appos-amount'>{this.props.appoToday.length} citas</span> HOY</div>
                     <div>
                         {this.props.appoToday.map((appo, index) => (
                             <div key={index} className='appointments' id={appo.id_cita}>
@@ -120,11 +111,11 @@ class APPOINTMENTS_INFO extends Component {
                 ):null}
                 {this.props.appoTomorrow.length ? (
                 <div className='appointments-block'>
-                    <div>MAÑANA</div>
+                    <div><span className='appos-amount'>{this.props.appoTomorrow.length} citas</span> MAÑANA</div>
                     <div>
                         {this.props.appoTomorrow.map((appo, index) => (
                             <div key={index} className='appointments' id={appo.id_cita}>
-                                <div className='appointments-appo' style={index % 2 === 0 ? { background: 'rgb(68, 68, 68)' } : { background: 'rgb(29, 29, 29)' }} appointment={appo.id_cita} id={`appointment${index + this.props.appoToday.length}`} call={`call${index + this.props.appoToday.length}`} idappo={appo.id_cita} nameappo={`${appo.nombre} ${appo.apellido}`} phoneappo={appo.telefono} ubicationappo={appo.direccion} onMouseDown={this.swipeDownPC} onMouseUp={this.swipeUpPC} onTouchStart={this.swipeDownMOBILE} onTouchEnd={this.swipeUpMOBILE}>
+                                <div className='appointments-appo' style={index % 2 === 0 ? { background: 'rgb(68, 68, 68)' } : { background: 'rgb(29, 29, 29)' }} appointment={appo.id_cita} id={`appointment${this.props.adj===false?index:index + this.props.appoToday.length}`} call={`call${this.props.adj===false?index:index + this.props.appoToday.length}`} idappo={appo.id_cita} nameappo={`${appo.nombre} ${appo.apellido}`} phoneappo={appo.telefono} ubicationappo={appo.direccion} onMouseDown={this.swipeDownPC} onMouseUp={this.swipeUpPC} onTouchStart={this.swipeDownMOBILE} onTouchEnd={this.swipeUpMOBILE}>
                                     <div>{appo.nombre} {appo.apellido}</div>
                                     <div>{appo.hora_agenda}</div>
                                     <div>{appo.fecha_agenda_format}</div>
@@ -132,12 +123,12 @@ class APPOINTMENTS_INFO extends Component {
                                     <div>{appo.telefono}</div>
                                     <div>{appo.id_vendedor_n}</div>
                                 </div>
-                                <div id={`call${index + this.props.appoToday.length}`} cont={`appointment${index + this.props.appoToday.length}`} onClick={() => window.open(`tel:${appo.telefono}`, '_self')}><i className="fas fa-phone fa-3x"></i></div>
+                                <div id={`call${this.props.adj===false?index:index + this.props.appoToday.length}`} cont={`appointment${this.props.adj===false?index:index + this.props.appoToday.length}`} onClick={() => window.open(`tel:${appo.telefono}`, '_self')}><i className="fas fa-phone fa-3x"></i></div>
                             </div>
                         ))}
                     </div>
                 </div>
-                ):null}
+                ):null} */}
             </div>
         )
     }

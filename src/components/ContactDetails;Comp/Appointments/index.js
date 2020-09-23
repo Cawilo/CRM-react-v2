@@ -29,12 +29,9 @@ class CONTACTDETAILS_APPOINTMENTS extends Component {
     };
 
     openAppoinment = event => {
-        console.log(event.currentTarget.attributes.id.value)
-        console.log(this.props.contactName)
         if (event.currentTarget.attributes.id.value !== '0') {
             axios.get(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=cita_edit&id=${event.currentTarget.attributes.id.value}&e=${token}`)
                 .then(res => {
-                    console.log(res.data)
                     res.data[0].id_trabajador = this.assignSeller(res.data[0].id_trabajador)
                     this.setState({
                         appoDetails: res.data[0],
@@ -47,8 +44,8 @@ class CONTACTDETAILS_APPOINTMENTS extends Component {
         } else {
             this.setState({
                 appoDetails: false,
-                appoHour: '',
-                appoDate: '',
+                appoHour:  moment().format("HH:mm"),
+                appoDate: moment().format('YYYY-MM-DD').toString(),
                 appoNote: '',
             }, this.child.current.openModal())
 
@@ -87,10 +84,8 @@ class CONTACTDETAILS_APPOINTMENTS extends Component {
     }
 
     deleteAppointment = event => {
-        console.log(event.currentTarget.value)
         axios.post(`https://afternoon-stream-55694.herokuapp.com/http://topturfmiami.system4book.com/services/service_contacts.php?i=delete_app&id=${event.currentTarget.value}&e=${token}`)
         .then(res => {
-            console.log(res.data)
             this.child.current.closeModal()
             this.props.updateAppointments()
         })

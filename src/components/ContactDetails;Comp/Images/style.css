@@ -3,9 +3,7 @@
     border-radius: 3px;
 }
 
-/* input[type="file"] {
-    display: none;
-} */
+
 
 
 .contactdetails-modal-editor{
@@ -16,8 +14,17 @@
 }
 
 .contactdetails-modal-editor>textarea{
-    background: rgb(24, 24, 24);
+    background: rgb(46, 46, 46);
     color: white;
+    padding:0.8em;
+}
+.contactdetails-modal-editor>button{
+    background: rgb(31, 151, 31);
+    color: white;
+    font-weight: bold;
+}
+.contactdetails-modal-editor>button:active{
+    background: rgb(14, 70, 14);
 }
 
 .contactdetails-images{

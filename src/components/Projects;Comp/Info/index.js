@@ -30,10 +30,7 @@ class PROJECTS_INFO extends Component {
 
     grabImage = (event) => {
         event.persist()
-        console.log(event.currentTarget.attributes.id.value)
-        console.log(event.type)
         // this.setState({projectName: event.currentTarget.attributes.id.value},()=> {
-        //     console.log(this.state.projectName)
         //     this.child.current.openModal()
         // })
        
@@ -61,7 +58,6 @@ class PROJECTS_INFO extends Component {
 
             this.setState({ toSaveImage: imgobj})
             //this.child.current.openModal()
-            // console.log(name)
 
 
         }
@@ -86,7 +82,6 @@ class PROJECTS_INFO extends Component {
     }
 
     // saveImage = () => {
-    //     console.log(this.state.toSaveImage)
     // }
 
 
